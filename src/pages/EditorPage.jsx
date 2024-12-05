@@ -3,14 +3,12 @@ import { setOutput } from "../store/slices/terminalSlice";
 import CodeEditor from "../components/Editor/CodeEditor";
 import LanguageSelector from "../components/Editor/LangaugeSelector";
 import Terminal from "../components/Terminal/Terminal";
+import TopBar from "../components/TopBar/TopBar";
 
 const EditorPage = () => {
-
-
-
   return (
-    <div className="editor-page flex flex-col gap-4 p-4">
-
+    <div className="">
+       <TopBar/>
     </div>
   );
 };
