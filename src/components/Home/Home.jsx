@@ -3,7 +3,7 @@ import { CiFileOn } from "react-icons/ci"
 
 const Home = () => {
     return (
-        <div>
+        <div className=''>
             Home
         </div>
     )

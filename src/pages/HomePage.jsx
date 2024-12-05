@@ -2,7 +2,9 @@ import Home from "../components/Home/Home"
 
 const HomePage = () => {
     return (
-        <Home/>
+        <div className="bg-[#1C2333]">
+            ddqa
+        </div>
     )
 }
 

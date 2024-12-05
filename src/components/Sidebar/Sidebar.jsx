@@ -4,6 +4,7 @@ import { LuPlus } from "react-icons/lu";
 
 const Sidebar = () => {
     const location = useLocation();
+
     return (
         <section>
             <button
@@ -29,10 +30,9 @@ const Sidebar = () => {
                 </svg>
             </button>
 
-            <aside id="default-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen  transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidenav">
+            <aside id="default-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen border-r-2 border-gray-200 dark:border-gray-700 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidenav">
                 <div className="overflow-y-auto py-5 px-3 h-full  bg-[#1C2333] dark:border-gray-700">
                     <ul className="space-y-2">
-
                         <li>
                             <Link to="/" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group">
                                 <svg aria-hidden="true" className="w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
@@ -40,7 +40,7 @@ const Sidebar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/" className="flex items-center  text-center p-1 font-normal border text-gray-900 border-blue-200 rounded-md dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group">
+                            <Link to="/" className="flex items-center text-center p-1 font-normal border text-gray-900 border-gray-200 dark:border-gray-700 rounded-md dark:text-white hover:bg-gray-800 dark:hover:bg-gray-800 group">
                                 <span className="ml-8 flex justify-center items-center text-center gap-2">
                                     <LuPlus />
                                     <p className="text-center"> Create Repl</p>
@@ -91,7 +91,7 @@ const Sidebar = () => {
 
                 </div>
 
-                <div className="hidden absolute bottom-0 left-0 border-t-2  justify-center p-4 space-x-4 w-full lg:flex bg-[#1C2333]  z-20 border-r border-gray-200 dark:border-gray-700">
+                <div className="hidden absolute bottom-0 left-0 border-t-2  justify-center p-4 space-x-4 w-full lg:flex bg-[#1C2333]  z-20  border-gray-200 dark:border-gray-700">
                     <a href="#" className="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-600">
                         <svg aria-hidden="true" className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path></svg>
                     </a>

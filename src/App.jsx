@@ -8,7 +8,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 const App = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen bg-[#1C2333]">
         <SignedIn>
           <Routes>
             <Route path="/" element={<Sidebar />}>
