@@ -3,8 +3,11 @@ import TopBar from "../components/TopBar/TopBar";
 
 const HomePage = () => {
   return (
-    <div className="bg-[#1C2333]">
+    <div>
       <TopBar />
+      <div className="p-12">
+        <Home/>
+      </div>
     </div>
   );
 };
