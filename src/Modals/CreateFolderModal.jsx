@@ -6,6 +6,7 @@ import { openOrCloseFolderModal, addFolderHandler, updateFolderHandler } from '.
 
 const CreateFolderModal = ({ folderName, setFolderName, folderId,
     setFolderId }) => {
+        
     const dispatch = useDispatch();
 
     return (
