@@ -1,12 +1,27 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
+import {
+  SignedIn,
+  SignedOut,
+  RedirectToSignIn,
+  useAuth,
+} from "@clerk/clerk-react";
 import "./App.css";
 import EditorPage from "./pages/EditorPage";
 import HomePage from "./pages/HomePage";
 import Sidebar from "./components/Sidebar/Sidebar";
 import FilePage from "./pages/FilePage";
+import { useEffect } from "react";
 
 const App = () => {
+  const { getToken } = useAuth();
+
+  useEffect(() => {
+    (async () => {
+      const token = await getToken();
+      console.log(token);
+    })();
+  }, []);
+
   return (
     <Router>
       <div className="flex flex-col min-h-screen bg-[#1C2333]">
