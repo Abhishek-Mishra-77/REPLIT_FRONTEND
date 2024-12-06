@@ -20,9 +20,12 @@ const homeSlice = createSlice({
             state.folders = state.folders.filter((folder) => folder.id !== action.payload)
         },
         updateFolderHandler(state, action) {
-            const selectedFolder = state.folders.find((folder) => folder.id === action.payload.id);
-            if (selectedFolder) {
-            }
+            state.folders = state.folders.map((folder) => {
+                if (folder.id === action.payload.id) {
+                    return { ...folder, name: action.payload.name }
+                }
+                return folder;
+            });
         }
     }
 })

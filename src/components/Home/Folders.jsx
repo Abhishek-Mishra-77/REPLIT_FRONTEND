@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
-import { removeFolderHandler } from '../../store/slices/homeSlice';
+import { removeFolderHandler, openOrCloseFolderModal } from '../../store/slices/homeSlice';
 
 const Folders = ({ setFolderName, setFolderId }) => {
     const { folders } = useSelector((state) => state.home);
@@ -39,8 +39,10 @@ const Folders = ({ setFolderName, setFolderId }) => {
                             <ul className="text-sm text-gray-300">
                                 <li
                                     onClick={() => {
+                                        dispatch(openOrCloseFolderModal())
                                         setFolderName(folder.name)
                                         setFolderId(folder.id)
+                                        setActiveDropdown(null);
                                     }}
                                     className="px-4 py-2 flex items-center gap-2 hover:bg-gray-600 cursor-pointer">
                                     <span className="text-xl">
