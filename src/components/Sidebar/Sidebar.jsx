@@ -17,7 +17,7 @@ const Sidebar = () => {
         data-drawer-toggle="default-sidebar"
         aria-controls="default-sidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
         <span className="sr-only">Open sidebar</span>
         <svg
@@ -34,10 +34,9 @@ const Sidebar = () => {
           ></path>
         </svg>
       </button>
-
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen border-r-2 border-gray-200 dark:border-gray-700 transition-transform -translate-x-full sm:translate-x-0"
+        className="fixed top-0 left-0 z-40 w-64 h-screen border-r-2 border-gray-200  dark:border-gray-700 transition-transform -translate-x-full sm:translate-x-0 max-[768px]:hidden"
         aria-label="Sidenav"
       >
         <div className="overflow-y-auto py-5 px-3 h-full  bg-[#1C2333] dark:border-gray-700">
@@ -75,11 +74,10 @@ const Sidebar = () => {
               <Link
                 to="/"
                 className={`flex items-center p-2 w-full text-base font-normal text-white  rounded-lg transition duration-75 group active:border-sky-300
-                              ${
-                                location?.pathname === "/"
-                                  ? "bg-gray-200 text-white dark:bg-gray-700 border-sky-300"
-                                  : "hover:bg-gray-200 dark:hover:bg-gray-700"
-                              }`}
+                              ${location?.pathname === "/"
+                    ? "bg-gray-200 text-white dark:bg-gray-700 border-sky-300"
+                    : "hover:bg-gray-200 dark:hover:bg-gray-700"
+                  }`}
                 aria-controls="dropdown-pages"
                 data-collapse-toggle="dropdown-pages"
               >
@@ -105,11 +103,10 @@ const Sidebar = () => {
               <Link
                 to="/editor"
                 className={`flex items-center p-2 w-full text-base font-normal text-white rounded-lg transition duration-75   group  
-                        ${
-                          location?.pathname === "/editor"
-                            ? "bg-gray-200 text-white dark:bg-gray-700 active:border-sky-300"
-                            : "hover:bg-gray-200 dark:hover:bg-gray-700 "
-                        }
+                        ${location?.pathname === "/editor"
+                    ? "bg-gray-200 text-white dark:bg-gray-700 active:border-sky-300"
+                    : "hover:bg-gray-200 dark:hover:bg-gray-700 "
+                  }
                              `}
                 aria-controls="dropdown-sales"
                 data-collapse-toggle="dropdown-sales"
@@ -230,7 +227,7 @@ const Sidebar = () => {
           </SignedIn>
         </div>
       </aside>
-      <div className="ml-64">
+      <div className="md:ml-64">
         <Outlet />
       </div>
     </section>

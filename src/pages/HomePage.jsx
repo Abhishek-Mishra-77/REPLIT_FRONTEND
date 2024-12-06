@@ -6,7 +6,7 @@ const HomePage = () => {
     <div>
       <TopBar />
       <div className="p-12">
-        <Home/>
+        <Home />
       </div>
     </div>
   );

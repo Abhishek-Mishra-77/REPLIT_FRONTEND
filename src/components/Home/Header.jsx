@@ -2,11 +2,14 @@ import React from 'react'
 import { BiError } from "react-icons/bi";
 import { CiFolderOn } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+    const { folders } = useSelector((state) => state.home);
+
     return (
         <>
-            <div className="flex justify-between bg-gray-800 items-center p-4  rounded-t-lg">
+            <div className="flex justify-between bg-gray-800 items-center p-4   rounded-t-lg">
                 <div className="flex items-center gap-2">
                     <span className="text-sky-400 text-2xl">
                         <CiFolderOn />
@@ -14,7 +17,7 @@ const Header = () => {
                     <h3 className="text-lg font-semibold">Repls</h3>
                     <div className="flex items-center gap-2 text-gray-400 text-sm">
                         <BiError className="text-yellow-400" />
-                        <p>(18/3) Repls</p>
+                        <p>({folders.length}) Repls</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-2 px-5 py-2 justify-center button">

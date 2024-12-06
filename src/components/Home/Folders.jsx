@@ -11,7 +11,7 @@ const Folders = ({ setFolderName, setFolderId }) => {
     const { folders } = useSelector((state) => state.home);
     const dispatch = useDispatch();
     const [activeDropdown, setActiveDropdown] = useState(null);
-   
+
 
     const toggleDropdown = (id) => {
         setActiveDropdown(activeDropdown === id ? null : id);
