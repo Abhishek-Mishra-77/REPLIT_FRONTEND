@@ -1,9 +1,10 @@
 import { useDispatch } from "react-redux"
 import { GiCrossMark } from "react-icons/gi";
-import { openOrCloseFolderModal, addFolderHandler } from '../store/slices/homeSlice';
+import { openOrCloseFolderModal, addFolderHandler, updateFolderHandler } from '../store/slices/homeSlice';
 
 
-const CreateFolderModal = ({ folderName, setFolderName }) => {
+const CreateFolderModal = ({ folderName, setFolderName, folderId,
+    setFolderId }) => {
     const dispatch = useDispatch();
 
 
@@ -36,7 +37,7 @@ const CreateFolderModal = ({ folderName, setFolderName }) => {
                     >
                         Cancel
                     </button>
-                    <button
+                    {folderId ? <button
                         onClick={() => {
                             dispatch(addFolderHandler({ name: folderName, id: Math.random().toString() }))
                             dispatch(openOrCloseFolderModal())
@@ -44,7 +45,15 @@ const CreateFolderModal = ({ folderName, setFolderName }) => {
                         className="px-4 py-2 text-sm font-medium text-white  button transition"
                     >
                         + Create Folder
-                    </button>
+                    </button> : <button
+                        onClick={() => {
+                            dispatch(updateFolderHandler({ name: folderName, id: folderId }))
+                            dispatch(openOrCloseFolderModal())
+                        }}
+                        className="px-4 py-2 text-sm font-medium text-white  button transition"
+                    >
+                        + Create Folder
+                    </button>}
                 </div>
             </div>
         </div>

@@ -24,6 +24,8 @@ const Home = () => {
         <CreateFolderModal
           folderName={folderName}
           setFolderName={setFolderName}
+          folderId={folderId}
+          setFolderId={setFolderId}
         />}
     </div>
   );
