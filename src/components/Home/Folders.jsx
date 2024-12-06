@@ -7,7 +7,7 @@ import { MdDelete } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { removeFolderHandler } from '../../store/slices/homeSlice';
 
-const Folders = () => {
+const Folders = ({ setFolderName, setFolderId }) => {
     const { folders } = useSelector((state) => state.home);
     const dispatch = useDispatch();
     const [activeDropdown, setActiveDropdown] = useState(null);
@@ -37,7 +37,12 @@ const Folders = () => {
                     {activeDropdown === folder.id && (
                         <div className="absolute right-2 mt-2 top-6 w-32 bg-gray-700 rounded-md shadow-lg z-10">
                             <ul className="text-sm text-gray-300">
-                                <li className="px-4 py-2 flex items-center gap-2 hover:bg-gray-600 cursor-pointer">
+                                <li
+                                    onClick={() => {
+                                        setFolderName(folder.name)
+                                        setFolderId(folder.id)
+                                    }}
+                                    className="px-4 py-2 flex items-center gap-2 hover:bg-gray-600 cursor-pointer">
                                     <span className="text-xl">
                                         <MdDriveFileRenameOutline />
                                     </span>

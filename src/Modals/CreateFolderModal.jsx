@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
 import { useDispatch } from "react-redux"
 import { GiCrossMark } from "react-icons/gi";
 import { openOrCloseFolderModal, addFolderHandler } from '../store/slices/homeSlice';
 
 
-const CreateFolderModal = () => {
+const CreateFolderModal = ({ folderName, setFolderName }) => {
     const dispatch = useDispatch();
-    const [folderName, setFolderName] = useState("");
 
 
     return (
