@@ -63,7 +63,7 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/"
-                className="flex items-center text-center p-1 font-normal border text-gray-900 border-gray-200 dark:border-gray-700 rounded-md dark:text-white hover:bg-gray-800 dark:hover:bg-gray-800 group active:border-sky-300"
+                className="flex items-center text-center p-1 font-normal border text-gray-900 border-gray-200 dark:border-gray-700 active:border-sky-300 rounded-md dark:text-white hover:bg-gray-800 dark:hover:bg-gray-800 group "
               >
                 <span className="ml-8 flex justify-center items-center text-center gap-2">
                   <LuPlus />

@@ -12,7 +12,7 @@ const TopBar = () => {
           <CiSearch />
         </span>
         <input
-          className="w-full pl-10 mb-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-gray-200 dark:border-gray-700 rounded-md p-2 text-white active:border-sky-300 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+          className="w-full pl-10 mb-2 bg-transparent placeholder:text-slate-400 text-sm border border-gray-200 dark:border-gray-700 rounded-md p-2 text-white active:border-sky-300 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
           placeholder="Search & run commands"
         />
         <span className="absolute right-3 mb-2 text-slate-400">Ctrl</span>
