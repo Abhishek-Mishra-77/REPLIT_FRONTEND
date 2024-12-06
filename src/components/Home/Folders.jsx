@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 import { removeFolderHandler, openOrCloseFolderModal } from '../../store/slices/homeSlice';
 
 const Folders = ({ setFolderName, setFolderId }) => {
     const { folders } = useSelector((state) => state.home);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [activeDropdown, setActiveDropdown] = useState(null);
-
 
     const toggleDropdown = (id) => {
         setActiveDropdown(activeDropdown === id ? null : id);
@@ -25,7 +26,11 @@ const Folders = ({ setFolderName, setFolderId }) => {
             </div>
 
             {folders?.map((folder, i) => (
-                <div key={folder.id} tabIndex={i + 1} className="p-2 flex justify-between w-[30%] mt-4 items-center borderStyle gap-3 bg-gray-800 rounded-md cursor-pointer transition-colors duration-300 relative">
+                <div
+                    onClick={() => navigate(`/file/${folder.id}`)}
+                    key={folder.id}
+                    tabIndex={i + 1}
+                    className="p-2 flex justify-between w-[30%] mt-4 items-center borderStyle gap-3 bg-gray-800 rounded-md cursor-pointer transition-colors duration-300 relative">
                     <div className="flex gap-2">
                         <CiFolderOn className="text-sky-400 text-lg" />
                         <p className="text-sm font-medium text-gray-300">{folder.name}</p>

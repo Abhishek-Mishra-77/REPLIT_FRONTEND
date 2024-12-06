@@ -4,6 +4,7 @@ import "./App.css";
 import EditorPage from "./pages/EditorPage";
 import HomePage from "./pages/HomePage";
 import Sidebar from "./components/Sidebar/Sidebar";
+import FilePage from "./pages/FilePage";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Sidebar />}>
               <Route index element={<HomePage />} />
+              <Route path="file/:id" element={<FilePage />} />
               <Route path="editor" element={<EditorPage />} />
             </Route>
           </Routes>

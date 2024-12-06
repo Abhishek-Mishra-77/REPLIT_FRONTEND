@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import Header from "./Header";
 import Folders from "./Folders";
 import CreateFolder from "./CreateFolder";
 import CreateFolderModal from "../../Modals/CreateFolderModal";
 import { useSelector } from "react-redux"
-
-
+import Header from "./header";
 
 const Home = () => {
   const [folderName, setFolderName] = useState("");
   const [folderId, setFolderId] = useState("");
-  const { home } = useSelector((state) => state);
+  const { isOpenFolderModal } = useSelector((state) => state.home);
 
   return (
     <div className="text-white gap-2 rounded-lg">
@@ -20,7 +18,7 @@ const Home = () => {
         setFolderName={setFolderName}
         setFolderId={setFolderId}
       />
-      {home.isOpenFolderModal &&
+      {isOpenFolderModal &&
         <CreateFolderModal
           folderName={folderName}
           setFolderName={setFolderName}

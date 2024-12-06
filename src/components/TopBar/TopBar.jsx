@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { useSelector } from "react-redux";
 
-const TopBar = () => {
+const TopBar = ({ Repls }) => {
   const [searchFolder, setSearchFolder] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const { folders } = useSelector((state) => state.home);
 
-  const filteredFolders = folders.filter((folder) =>
+  const filteredFolders = Repls?.filter((folder) =>
     folder.name.toLowerCase().includes(searchFolder.toLowerCase())
   );
 
@@ -32,7 +30,7 @@ const TopBar = () => {
           />
           <span className="absolute right-3  text-slate-400">Ctrl</span>
         </div>
-        {isFocused && (searchFolder || filteredFolders.length > 0) && (
+        {isFocused && (searchFolder || filteredFolders?.length > 0) && (
           <div className="absolute w-[60%] top-10 transform-translate-x-1/2  bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-999">
             <ul className="max-h-40 overflow-y-auto "
               style={{
