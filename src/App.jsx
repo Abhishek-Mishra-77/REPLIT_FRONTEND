@@ -3,24 +3,16 @@ import {
   SignedIn,
   SignedOut,
   RedirectToSignIn,
-  useAuth,
 } from "@clerk/clerk-react";
 import "./App.css";
 import EditorPage from "./pages/EditorPage";
 import HomePage from "./pages/HomePage";
 import Sidebar from "./components/Sidebar/Sidebar";
 import FilePage from "./pages/FilePage";
-import { useEffect } from "react";
+import Auth from "./components/Auth/Auth";
 
 const App = () => {
-  const { getToken } = useAuth();
 
-  useEffect(() => {
-    (async () => {
-      const token = await getToken();
-      console.log(token);
-    })();
-  }, []);
 
   return (
     <Router>
@@ -35,7 +27,7 @@ const App = () => {
           </Routes>
         </SignedIn>
         <SignedOut>
-          <RedirectToSignIn />
+          <Auth />
         </SignedOut>
       </div>
     </Router>
