@@ -1,12 +1,13 @@
 import React from "react";
 
-const SignIn = ({ setIsLogin, setIsForgot }) => {
+const SignIn = ({ setIsLogin, setIsForgot, userDetails,
+    setUserDetails, onLoginHandler }) => {
     return (
         <>
             <div className="font-[sans-serif] bg-gradient-to-br from-gray-800 to-gray-900 text-gray-100 min-h-screen flex items-center justify-center px-4 py-6">
                 <div className="flex justify-center items-center gap-6 max-w-6xl w-full">
                     <div className="bg-gray-800 border border-gray-700 rounded-lg p-8 shadow-lg max-md:mx-auto w-full max-w-md">
-                        <form className="space-y-6">
+                        <form onSubmit={onLoginHandler} className="space-y-6">
                             <div className="mb-8">
                                 <h3 className="text-3xl font-extrabold text-blue-500">Sign in</h3>
                                 <p className="text-gray-400 text-sm mt-4">
@@ -19,6 +20,8 @@ const SignIn = ({ setIsLogin, setIsForgot }) => {
                                     <input
                                         name="username"
                                         type="text"
+                                        value={userDetails.email}
+                                        onChange={(e) => setUserDetails((prev) => ({ ...prev, email: e.target.value }))}
                                         required
                                         className="w-full bg-transparent placeholder:text-gray-400 text-sm border border-gray-500 rounded-md px-4 py-2 text-white transition duration-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
                                         placeholder="Enter username"
@@ -40,6 +43,8 @@ const SignIn = ({ setIsLogin, setIsForgot }) => {
                                     <input
                                         name="password"
                                         type="password"
+                                        value={userDetails.password}
+                                        onChange={(e) => setUserDetails((prev) => ({ ...prev, password: e.target.value }))}
                                         required
                                         className="w-full bg-transparent placeholder:text-gray-400 text-sm border border-gray-500 rounded-md px-4 py-2 text-white transition duration-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
                                         placeholder="Enter password"

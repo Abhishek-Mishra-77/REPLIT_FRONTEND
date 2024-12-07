@@ -63,8 +63,6 @@ const OtpVerification = ({ setIsForgot }) => {
                             </button>
                         </div>
                     </div>
-
-                    {/* OTP Input */}
                     <div>
                         <label className="block text-sm font-medium text-sky-300 mb-2">6-Digit OTP</label>
                         <input
@@ -76,8 +74,6 @@ const OtpVerification = ({ setIsForgot }) => {
                             onChange={handleOtpChange}
                         />
                     </div>
-
-                    {/* Verify Button */}
                     <button
                         type="button"
                         className={`w-full py-2 text-sm font-medium text-white rounded-md transition-all duration-300 ${otp.length === 6
