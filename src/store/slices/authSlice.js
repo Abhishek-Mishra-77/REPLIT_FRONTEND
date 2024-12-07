@@ -1,26 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { serverUrl } from "../../services/common";
 
-export const loginAsyn = createAsyncThunk('auth/login', async ({ email, password, name = "Abhishek", role = "admin" }, thunkAPI) => {
-    try {
-        const response = await axios.post(`${process.env.SERVER_URL}/auth/login`, { email, password, name, role })
 
-        console.log(response);
+export const loginAsyn = createAsyncThunk(
+    "auth/login",
+    async (userDetails, thunkAPI) => {
+        try {
+            console.log(serverUrl)
+            const response = await axios.post(`${serverUrl}/auth/login`, userDetails);
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message || error.message
+            );
+        }
     }
-    catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
-    }
-})
-
+);
 
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-        isLogin: !JSON.parse(localStorage.getItem('token')),
-        userDetails: JSON.parse(localStorage.getItem('userDetails')) || null,
-        token: JSON.parse(localStorage.getItem('token')),
+        isLogin: localStorage.getItem("token") ? true : false,
+        userDetails: JSON.parse(localStorage.getItem("userDetails")) || null,
+        token: localStorage.getItem("token") || "",
         loading: false,
-        error: null
+        error: null,
     },
     reducers: {
         logout(state) {
@@ -28,32 +33,46 @@ const authSlice = createSlice({
             state.userDetails = null;
             state.token = null;
 
-            localStorage.removeItem("token");
-            localStorage.removeItem('userDetails');
-        }
+            try {
+                localStorage.removeItem("token");
+                localStorage.removeItem("userDetails");
+            } catch (e) {
+                console.error("Failed to remove from localStorage:", e);
+            }
+        },
     },
     extraReducers: (builder) => {
-        builder.addCase(loginAsyn.pending, (state) => {
-            state.loading = true;
-            state.error = null
-        })
+        builder
+            .addCase(loginAsyn.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
             .addCase(loginAsyn.fulfilled, (state, action) => {
                 const { user, token } = action.payload;
 
                 state.loading = false;
                 state.isLogin = true;
                 state.userDetails = user;
-                state.token = token
+                state.token = token;
 
-                localStorage.setItem('token', JSON.stringify(token));
-                localStorage.setItem('userDetails', JSON.stringify(user));
+                try {
+                    localStorage.setItem("token", token);
+                    localStorage.setItem("userDetails", JSON.stringify(user));
+                } catch (e) {
+                    console.error("Failed to save to localStorage:", e);
+                }
             })
             .addCase(loginAsyn.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload
-            })
-    }
-})
+                state.error = action.payload;
+            });
+    },
+});
 
 export const { logout } = authSlice.actions;
+
+export const selectIsLogin = (state) => state.auth.isLogin;
+export const selectUserDetails = (state) => state.auth.userDetails;
+export const selectAuthToken = (state) => state.auth.token;
+
 export default authSlice.reducer;

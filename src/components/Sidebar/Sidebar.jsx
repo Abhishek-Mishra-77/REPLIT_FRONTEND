@@ -1,14 +1,16 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/clerk-react";
+import React, { useState } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
+import { logout } from "../../store/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  let user = null;
 
   return (
     <section>
@@ -209,21 +211,52 @@ const Sidebar = () => {
               ></path>
             </svg>
           </button>
+          <div className="relative">
+            <button
+              className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center focus:outline-none"
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+            >
+              <img
+                src={user?.profileImageUrl || "/default-avatar.png"}
+                alt="User Icon"
+                className="w-8 h-8 rounded-full"
+              />
+            </button>
 
-          <div
-            id="tooltip-settings"
-            role="tooltip"
-            className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip"
-          >
-            Settings page
-            <div className="tooltip-arrow" data-popper-arrow></div>
+            {/* Dropdown Menu */}
+            {isMenuOpen && (
+              <div className="absolute bottom-10 left-6  w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+                <div className="p-4 text-gray-800">
+                  <p className="text-sm font-medium">{user?.name || "Guest"}</p>
+                  <p className="text-xs text-gray-500">{user?.email}</p>
+                </div>
+                <hr className="my-2" />
+                <button
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => console.log("Navigate to Profile")}
+                >
+                  Profile
+                </button>
+                <button
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => {
+                    dispatch(logout());
+                    navigate("/auth");
+                  }}
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
+
+            {/* Backdrop for closing the menu */}
+            {isMenuOpen && (
+              <div
+                className="fixed inset-0 z-0"
+                onClick={() => setIsMenuOpen(false)}
+              ></div>
+            )}
           </div>
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
         </div>
       </aside>
       <div className="md:ml-64">

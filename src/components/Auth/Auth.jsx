@@ -18,7 +18,8 @@ const Auth = () => {
 
     const onLoginHandler = (e) => {
         e.preventDefault();
-        dispatch(loginAsyn({ userDetails }));
+        console.log(userDetails)
+        dispatch(loginAsyn(userDetails));
     }
 
     return (
