@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
 import { logout } from "../../store/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  let user = null;
+  const { userDetails } = useSelector((state) => state.auth);
 
   return (
     <section>
@@ -213,32 +212,32 @@ const Sidebar = () => {
           </button>
           <div className="relative">
             <button
-              className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center focus:outline-none"
+              className="w-12 h-12 rounded-full bg-gray-700 dark:bg-gray-700 border border-transparent hover:border-sky-300 focus:border-sky-300 text-white shadow-lg flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-200"
               onClick={() => setIsMenuOpen((prev) => !prev)}
             >
-              <img
-                src={user?.profileImageUrl || "/default-avatar.png"}
+              <span
                 alt="User Icon"
-                className="w-8 h-8 rounded-full"
-              />
+                className="w-10 h-10 rounded-full text-xl bg-purple-800 text-white flex items-center justify-center font-bold"
+              >
+                {userDetails?.email?.toUpperCase().charAt(0) || "G"}
+              </span>
             </button>
 
             {/* Dropdown Menu */}
             {isMenuOpen && (
-              <div className="absolute bottom-10 left-6  w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
-                <div className="p-4 text-gray-800">
-                  <p className="text-sm font-medium">{user?.name || "Guest"}</p>
-                  <p className="text-xs text-gray-500">{user?.email}</p>
+              <div className="absolute bottom-12 left-6 w-48 bg-[#1C2333] text-white rounded-lg shadow-xl border border-gray-700 z-10">
+                <div className="p-4 text-white">
+                  <p className="text-sm font-medium">
+                    {userDetails?.name || "Guest"}
+                  </p>
+                  <p className="text-xs text-gray-400">{userDetails?.email}</p>
                 </div>
-                <hr className="my-2" />
-                <button
-                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  onClick={() => console.log("Navigate to Profile")}
-                >
+                <hr className="my-2 border-gray-600" />
+                <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-[#2C3541] hover:text-white transition-all">
                   Profile
                 </button>
                 <button
-                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-red-600 hover:text-white transition-all"
                   onClick={() => {
                     dispatch(logout());
                     navigate("/auth");
@@ -252,7 +251,7 @@ const Sidebar = () => {
             {/* Backdrop for closing the menu */}
             {isMenuOpen && (
               <div
-                className="fixed inset-0 z-0"
+                className="fixed inset-0 z-0 bg-black opacity-50"
                 onClick={() => setIsMenuOpen(false)}
               ></div>
             )}

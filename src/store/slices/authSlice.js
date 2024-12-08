@@ -3,6 +3,10 @@ import axios from "axios";
 import { serverUrl } from "../../services/common";
 
 
+/* -------------------------------------------------------------------------- */
+/*                           LOGIN USER                                       */
+/* -------------------------------------------------------------------------- */
+
 export const loginAsyn = createAsyncThunk(
     "auth/login",
     async (userDetails, thunkAPI) => {
@@ -17,6 +21,10 @@ export const loginAsyn = createAsyncThunk(
         }
     }
 );
+
+/* -------------------------------------------------------------------------- */
+/*                             AUTH SLICE                                     */
+/* -------------------------------------------------------------------------- */
 
 const authSlice = createSlice({
     name: "auth",
@@ -70,9 +78,4 @@ const authSlice = createSlice({
 });
 
 export const { logout } = authSlice.actions;
-
-export const selectIsLogin = (state) => state.auth.isLogin;
-export const selectUserDetails = (state) => state.auth.userDetails;
-export const selectAuthToken = (state) => state.auth.token;
-
 export default authSlice.reducer;
