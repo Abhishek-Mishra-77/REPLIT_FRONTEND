@@ -1,7 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = ({ setIsLogin }) => {
+const SignUp = ({
+  setIsLogin,
+  onRegisterHandler,
+  userDetails,
+  setUserDetails,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -27,6 +32,10 @@ const SignUp = ({ setIsLogin }) => {
                   <input
                     name="username"
                     type="text"
+                    value={userDetails?.email}
+                    onChange={(e) =>
+                      setUserDetails({ ...userDetails, email: e.target.value })
+                    }
                     required
                     className="w-full bg-transparent placeholder:text-gray-400 text-sm border border-gray-500 rounded-md px-4 py-2 text-white transition duration-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
                     placeholder="Enter username"
@@ -50,6 +59,13 @@ const SignUp = ({ setIsLogin }) => {
                   <input
                     name="password"
                     type="password"
+                    value={userDetails?.password}
+                    onChange={(e) =>
+                      setUserDetails({
+                        ...userDetails,
+                        password: e.target.value,
+                      })
+                    }
                     required
                     className="w-full bg-transparent placeholder:text-gray-400 text-sm border border-gray-500 rounded-md px-4 py-2 text-white transition duration-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
                     placeholder="Enter password"
@@ -76,10 +92,7 @@ const SignUp = ({ setIsLogin }) => {
               </div>
               <div>
                 <button
-                  onClick={() => {
-                    navigate("/editor");
-                    localStorage.setItem("token", "abhishek");
-                  }}
+                  onClick={onRegisterHandler}
                   className="w-full py-3 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg focus:ring focus:ring-blue-500 focus:ring-opacity-50 shadow-lg"
                 >
                   Sign up

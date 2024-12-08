@@ -5,12 +5,14 @@ import OtpVerification from "./OtpVerification";
 import { useDispatch } from "react-redux";
 import { loginAsyn } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { onCreateUserHandler } from "../../Api/auth";
+import { toast } from "react-toastify";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isForgot, setIsForgot] = useState(false);
   const [userDetails, setUserDetails] = useState({
-    name: "",
+    name: "Abhishek",
     role: "operator",
     email: "",
     password: "",
@@ -24,6 +26,19 @@ const Auth = () => {
     navigate("/");
   };
 
+  const onRegisterHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await onCreateUserHandler(userDetails);
+      setIsLogin(true);
+      toast.success(response.message || "User created successfully");
+      setUserDetails((prev) => ({ ...prev, email: "", password: "" }));
+    } catch (error) {
+      toast.error(error.response.data.message || error.message);
+    }
+  };
+
   return (
     <>
       {isLogin ? (
@@ -35,7 +50,12 @@ const Auth = () => {
           setIsLogin={setIsLogin}
         />
       ) : (
-        <SignUp setIsLogin={setIsLogin} />
+        <SignUp
+          onRegisterHandler={onRegisterHandler}
+          userDetails={userDetails}
+          setUserDetails={setUserDetails}
+          setIsLogin={setIsLogin}
+        />
       )}
 
       {isForgot && <OtpVerification setIsForgot={setIsForgot} />}
