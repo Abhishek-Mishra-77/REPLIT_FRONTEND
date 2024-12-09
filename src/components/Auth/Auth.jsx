@@ -3,9 +3,9 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import OtpVerification from "./OtpVerification";
 import { useDispatch } from "react-redux";
-import { loginAsyn } from "../../store/slices/authSlice";
+import { loginHandler } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { onCreateUserHandler } from "../../Api/auth";
+import { onCreateUserHandler, onSignInHandler } from "../../Api/auth";
 import { toast } from "react-toastify";
 
 const Auth = () => {
@@ -17,15 +17,31 @@ const Auth = () => {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassoword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onLoginHandler = (e) => {
+
+  /* ------------------------------------------------------------------------- */
+  /*                             LOGIN HANDLER                                 */
+  /* ------------------------------------------------------------------------- */
+  const onLoginHandler = async (e) => {
     e.preventDefault();
-    dispatch(loginAsyn(userDetails));
-    navigate("/");
+    try {
+      const response = await onSignInHandler(userDetails);
+
+      dispatch(loginHandler({ user: response.user, token: response.token }));
+      navigate('/')
+      toast.success(response.message)
+    }
+    catch (error) {
+      console.log(error)
+    }
   };
 
+  /* ------------------------------------------------------------------------- */
+  /*                             SIGNUP HANDLER                                */
+  /* ------------------------------------------------------------------------- */
   const onRegisterHandler = async (e) => {
     e.preventDefault();
 
@@ -48,6 +64,8 @@ const Auth = () => {
           setUserDetails={setUserDetails}
           setIsForgot={setIsForgot}
           setIsLogin={setIsLogin}
+          showPassword={showPassword}
+          setShowPassoword={setShowPassoword}
         />
       ) : (
         <SignUp
@@ -55,6 +73,8 @@ const Auth = () => {
           userDetails={userDetails}
           setUserDetails={setUserDetails}
           setIsLogin={setIsLogin}
+          showPassword={showPassword}
+          setShowPassoword={setShowPassoword}
         />
       )}
 

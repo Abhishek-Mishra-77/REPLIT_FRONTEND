@@ -7,7 +7,7 @@ import PageNotFound from "../../components/PageNotFound/PageNotFound";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { logout } from "../../store/slices/authSlice";
-import { onTokenVerificationHandler } from "../../services/common";
+import { onTokenVerificationHandler } from "../../Api/auth";
 
 const ProtectedRoutes = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,9 @@ const ProtectedRoutes = () => {
       navigate("/auth");
     } else {
       (async () => {
+        console.log("WPRKGMNI")
         const isTokenValid = await onTokenVerificationHandler();
+        console.log(isTokenValid)
         if (!isTokenValid) {
           dispatch(logout());
           navigate("/auth");
