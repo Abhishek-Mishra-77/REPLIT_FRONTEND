@@ -113,7 +113,15 @@ const SignIn = ({
               <p className="text-sm text-center">
                 Don't have an account?{" "}
                 <span
-                  onClick={() => setIsLogin(false)}
+                  onClick={() => {
+                    setIsLogin(false)
+                    setUserDetails({
+                      name: "Abhishek",
+                      role: "operator",
+                      email: "",
+                      password: "",
+                    })
+                  }}
                   className="text-blue-500 cursor-pointer font-semibold hover:underline"
                 >
                   Register here

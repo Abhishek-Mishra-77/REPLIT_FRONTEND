@@ -10,7 +10,6 @@ const SignUp = ({
   showPassword,
   setShowPassoword
 }) => {
-  const navigate = useNavigate();
 
   return (
     <>
@@ -107,7 +106,15 @@ const SignUp = ({
               <p className="text-sm text-center">
                 have an account?{" "}
                 <span
-                  onClick={() => setIsLogin(true)}
+                  onClick={() => {
+                    setIsLogin(true)
+                    setUserDetails({
+                      name: "Abhishek",
+                      role: "operator",
+                      email: "",
+                      password: "",
+                    })
+                  }}
                   className="text-blue-500  cursor-pointer font-semibold hover:underline"
                 >
                   Sign in

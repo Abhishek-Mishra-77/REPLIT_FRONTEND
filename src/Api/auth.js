@@ -13,6 +13,7 @@ const onCreateUserHandler = async (userDetails) => {
         return response.data;
 
     } catch (error) {
+        toast.error(error.response.data.message)
         return error.response.data;
     }
 }
