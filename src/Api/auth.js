@@ -68,4 +68,56 @@ const onTokenVerificationHandler = async () => {
     }
 }
 
-export { onCreateUserHandler, onUpdateUserHandler, onRemoveUserHandler, onTokenVerificationHandler, onSignInHandler };
+/* ------------------------------------------------------------------------ */
+/*                             SEND OTP API                                 */
+/* ------------------------------------------------------------------------ */
+
+const onSendOtpToEmailHandler = async (email) => {
+    const token = localStorage.getItem("token");
+    try {
+        await axios.post(`${serverUrl}/auth/sendotp`,
+            { email },
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Token validation failed:", error);
+        toast.error(error.response.data.message)
+    }
+}
+
+/* ------------------------------------------------------------------------ */
+/*                             VERIFY OTP API                               */
+/* ------------------------------------------------------------------------ */
+const onVerifyOtpHandler = async (otp) => {
+    const token = localStorage.getItem("token");
+    try {
+        await axios.post(`${serverUrl}/auth/verifyotp`,
+            { otp },
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Token validation failed:", error);
+         toast.error(error.response.data.message)
+    }
+}
+
+
+export {
+    onCreateUserHandler,
+    onUpdateUserHandler,
+    onRemoveUserHandler,
+    onTokenVerificationHandler,
+    onSignInHandler,
+    onSendOtpToEmailHandler,
+    onVerifyOtpHandler
+};

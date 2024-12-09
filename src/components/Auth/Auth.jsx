@@ -21,21 +21,25 @@ const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   /* ------------------------------------------------------------------------- */
   /*                             LOGIN HANDLER                                 */
   /* ------------------------------------------------------------------------- */
   const onLoginHandler = async (e) => {
     e.preventDefault();
+
+    if (!userDetails.email || !userDetails.password) {
+      toast.error("Please enter email and password");
+      return;
+    }
+
     try {
       const response = await onSignInHandler(userDetails);
 
       dispatch(loginHandler({ user: response.user, token: response.token }));
-      navigate('/')
-      toast.success(response.message)
-    }
-    catch (error) {
-      console.log(error)
+      navigate("/");
+      toast.success(response.message);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -44,6 +48,11 @@ const Auth = () => {
   /* ------------------------------------------------------------------------- */
   const onRegisterHandler = async (e) => {
     e.preventDefault();
+
+    if (!userDetails.email || !userDetails.password) {
+      toast.error("Please enter email and password");
+      return;
+    }
 
     try {
       const response = await onCreateUserHandler(userDetails);
