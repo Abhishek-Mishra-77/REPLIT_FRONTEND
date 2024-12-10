@@ -11,7 +11,7 @@ const HomePage = () => {
       <TopBar Repls={home.folders} />
       <div className="p-12 text-white">
         <Home />
-       {profile.isOpenProfileModal && <Profile />}
+        {profile.isOpenProfileModal && <Profile isOpenProfileModal={profile.isOpenProfileModal} />}
       </div>
     </div>
   );
