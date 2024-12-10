@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
 import { logout } from "../../store/slices/authSlice";
+import { openProfileModal } from "../../store/slices/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Sidebar = () => {
@@ -75,11 +76,10 @@ const Sidebar = () => {
               <Link
                 to="/"
                 className={`flex items-center p-2 w-full text-base font-normal text-white  rounded-lg transition duration-75 group active:border-sky-300
-                              ${
-                                location?.pathname === "/"
-                                  ? "bg-gray-200 text-white dark:bg-gray-700 border-sky-300"
-                                  : "hover:bg-gray-200 dark:hover:bg-gray-700"
-                              }`}
+                              ${location?.pathname === "/"
+                    ? "bg-gray-200 text-white dark:bg-gray-700 border-sky-300"
+                    : "hover:bg-gray-200 dark:hover:bg-gray-700"
+                  }`}
                 aria-controls="dropdown-pages"
                 data-collapse-toggle="dropdown-pages"
               >
@@ -105,11 +105,10 @@ const Sidebar = () => {
               <Link
                 to="/editor"
                 className={`flex items-center p-2 w-full text-base font-normal text-white rounded-lg transition duration-75   group  
-                        ${
-                          location?.pathname === "/editor"
-                            ? "bg-gray-200 text-white dark:bg-gray-700 active:border-sky-300"
-                            : "hover:bg-gray-200 dark:hover:bg-gray-700 "
-                        }
+                        ${location?.pathname === "/editor"
+                    ? "bg-gray-200 text-white dark:bg-gray-700 active:border-sky-300"
+                    : "hover:bg-gray-200 dark:hover:bg-gray-700 "
+                  }
                              `}
                 aria-controls="dropdown-sales"
                 data-collapse-toggle="dropdown-sales"
@@ -223,7 +222,6 @@ const Sidebar = () => {
               </span>
             </button>
 
-            {/* Dropdown Menu */}
             {isMenuOpen && (
               <div className="absolute bottom-12 left-6 w-48 bg-[#1C2333] text-white rounded-lg shadow-xl border border-gray-700 z-10">
                 <div className="p-4 text-white">
@@ -233,7 +231,9 @@ const Sidebar = () => {
                   <p className="text-xs text-gray-400">{userDetails?.email}</p>
                 </div>
                 <hr className="my-2 border-gray-600" />
-                <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-[#2C3541] hover:text-white transition-all">
+                <button
+                  onClick={() => dispatch(openProfileModal())}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-[#2C3541] hover:text-white transition-all">
                   Profile
                 </button>
                 <button
@@ -248,7 +248,6 @@ const Sidebar = () => {
               </div>
             )}
 
-            {/* Backdrop for closing the menu */}
             {isMenuOpen && (
               <div
                 className="fixed inset-0 z-0 bg-black opacity-50"

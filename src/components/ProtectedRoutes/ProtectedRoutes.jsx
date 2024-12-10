@@ -19,9 +19,7 @@ const ProtectedRoutes = () => {
       navigate("/auth");
     } else {
       (async () => {
-        console.log("WPRKGMNI")
         const isTokenValid = await onTokenVerificationHandler();
-        console.log(isTokenValid)
         if (!isTokenValid) {
           dispatch(logout());
           navigate("/auth");

@@ -12,8 +12,8 @@ const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isForgot, setIsForgot] = useState(false);
   const [userDetails, setUserDetails] = useState({
-    name: "Abhishek",
-    role: "operator",
+    name: "User",
+    role: "Operator",
     email: "",
     password: "",
   });
@@ -79,7 +79,7 @@ const Auth = () => {
     try {
       const response = await onSendOtpToEmailHandler(email);
       setUserId(response?.userId)
-      toast.success(response.message);
+      toast.success(response?.message);
     }
     catch (error) {
       toast.error(error.message);
@@ -95,7 +95,6 @@ const Auth = () => {
   const VerifyOtpHandler = async (e) => {
     e.preventDefault();
     const otp = e.target.otp.value
-    console.log(otp);
     if (!otp) {
       toast.error("Please enter OTP");
       return;
@@ -104,15 +103,13 @@ const Auth = () => {
       const response = await onVerifyOtpHandler(otp, userId);
       dispatch(loginHandler({ user: response.user, token: response.token }));
       navigate("/");
+      setIsOtpSent(false)
+      setUserId("")
+      setIsForgot(false)
       toast.success(response.message);
     }
     catch (error) {
       toast.error(error.message);
-    }
-    finally {
-      setIsOtpSent(false)
-      setUserId("")
-      setIsForgot(false)
     }
   }
 
