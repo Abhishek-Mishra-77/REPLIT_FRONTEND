@@ -5,7 +5,7 @@ import OtpVerification from "./OtpVerification";
 import { useDispatch } from "react-redux";
 import { loginHandler } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { onCreateUserHandler, onSignInHandler } from "../../Api/auth";
+import { onCreateUserHandler, onSignInHandler, onSendOtpToEmailHandler, onVerifyOtpHandler } from "../../Api/auth";
 import { toast } from "react-toastify";
 
 const Auth = () => {
@@ -17,6 +17,9 @@ const Auth = () => {
     email: "",
     password: "",
   });
+  const [userId, setUserId] = useState("")
+  const [loading, setIdLoading] = useState(false)
+  const [isOtpSent, setIsOtpSent] = useState(false);
   const [showPassword, setShowPassoword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +37,7 @@ const Auth = () => {
 
     try {
       const response = await onSignInHandler(userDetails);
-
+      console.log(response)
       dispatch(loginHandler({ user: response.user, token: response.token }));
       navigate("/");
       toast.success(response.message);
@@ -64,6 +67,55 @@ const Auth = () => {
     }
   };
 
+  /* ------------------------------------------------------------------------- */
+  /*                             SENDING OTP                                   */
+  /* ------------------------------------------------------------------------- */
+  const SendOtpHandler = async (email) => {
+    if (!email) {
+      toast.error("Please enter email");
+      return;
+    }
+    setIdLoading(true)
+    try {
+      const response = await onSendOtpToEmailHandler(email);
+      setUserId(response?.userId)
+      toast.success(response.message);
+    }
+    catch (error) {
+      toast.error(error.message);
+    }
+    finally {
+      setIdLoading(false)
+    }
+  }
+
+  /* ------------------------------------------------------------------------- */
+  /*                             VERIFYING OTP                                 */
+  /* ------------------------------------------------------------------------- */
+  const VerifyOtpHandler = async (e) => {
+    e.preventDefault();
+    const otp = e.target.otp.value
+    console.log(otp);
+    if (!otp) {
+      toast.error("Please enter OTP");
+      return;
+    }
+    try {
+      const response = await onVerifyOtpHandler(otp, userId);
+      dispatch(loginHandler({ user: response.user, token: response.token }));
+      navigate("/");
+      toast.success(response.message);
+    }
+    catch (error) {
+      toast.error(error.message);
+    }
+    finally {
+      setIsOtpSent(false)
+      setUserId("")
+      setIsForgot(false)
+    }
+  }
+
   return (
     <>
       {isLogin ? (
@@ -87,7 +139,15 @@ const Auth = () => {
         />
       )}
 
-      {isForgot && <OtpVerification setIsForgot={setIsForgot} />}
+      {isForgot &&
+        <OtpVerification
+          setIsForgot={setIsForgot}
+          SendOtpHandler={SendOtpHandler}
+          setIsOtpSent={setIsOtpSent}
+          isOtpSent={isOtpSent}
+          loading={loading}
+          VerifyOtpHandler={VerifyOtpHandler}
+        />}
     </>
   );
 };

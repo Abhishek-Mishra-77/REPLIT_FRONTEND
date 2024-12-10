@@ -75,7 +75,7 @@ const onTokenVerificationHandler = async () => {
 const onSendOtpToEmailHandler = async (email) => {
     const token = localStorage.getItem("token");
     try {
-        await axios.post(`${serverUrl}/auth/sendotp`,
+        const response = await axios.post(`${serverUrl}/auth/sendotp`,
             { email },
             {
                 headers: {
@@ -93,11 +93,11 @@ const onSendOtpToEmailHandler = async (email) => {
 /* ------------------------------------------------------------------------ */
 /*                             VERIFY OTP API                               */
 /* ------------------------------------------------------------------------ */
-const onVerifyOtpHandler = async (otp) => {
+const onVerifyOtpHandler = async (otp , userId) => {
     const token = localStorage.getItem("token");
     try {
-        await axios.post(`${serverUrl}/auth/verifyotp`,
-            { otp },
+        const response = await axios.post(`${serverUrl}/auth/verifybyotp`,
+            { otp , userId },
             {
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -107,7 +107,7 @@ const onVerifyOtpHandler = async (otp) => {
         return response.data;
     } catch (error) {
         console.error("Token validation failed:", error);
-         toast.error(error.response.data.message)
+        toast.error(error.response.data.message)
     }
 }
 
