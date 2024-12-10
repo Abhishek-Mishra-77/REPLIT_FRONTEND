@@ -232,7 +232,10 @@ const Sidebar = () => {
                 </div>
                 <hr className="my-2 border-gray-600" />
                 <button
-                  onClick={() => dispatch(openProfileModal())}
+                  onClick={() => {
+                    dispatch(openProfileModal())
+                    setIsMenuOpen(false)
+                  }}
                   className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-[#2C3541] hover:text-white transition-all">
                   Profile
                 </button>
