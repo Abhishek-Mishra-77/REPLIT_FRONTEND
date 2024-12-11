@@ -48,8 +48,6 @@ const Profile = ({ isOpenProfileModal }) => {
             toast.warning("You cannot remove yourself")
         }
     }
-
-
     const userUpdateHandler = async () => {
         if (auth?.userDetails?.role === "admin") {
 
@@ -59,7 +57,7 @@ const Profile = ({ isOpenProfileModal }) => {
             }
 
             try {
-                const responnse = await onUpdateUserHandler(selectedUser?._id, selectedUser);
+                await onUpdateUserHandler(selectedUser?._id, selectedUser);
                 const updatedUsers = users.map((user) => user._id === selectedUser?._id ? selectedUser : user);
                 setUsers(updatedUsers);
                 setOpenEditModal(false);
