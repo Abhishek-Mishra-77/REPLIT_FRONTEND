@@ -3,13 +3,25 @@ import { GiCrossMark } from "react-icons/gi";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
-const Profile = ({ isOpenProfileModal, openProfileModal, auth, dispatch, users }) => {
+const Profile = ({
+    isOpenProfileModal,
+    openProfileModal,
+    auth,
+    dispatch,
+    users,
+    setConfirmation,
+    setSelectedId
+}) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-70 z-50">
             <div className="w-full max-w-4xl p-8 bg-[#1C2333] border border-sky-300 text-white rounded-2xl shadow-2xl relative">
                 <button
                     className="absolute top-6 right-6 hover:text-red-500 text-2xl font-bold"
-                    onClick={() => dispatch(openProfileModal())}
+                    onClick={() => {
+                        dispatch(openProfileModal())
+                        setConfirmation(false)
+                        setSelectedId("")
+                    }}
                 >
                     <GiCrossMark />
                 </button>
@@ -59,9 +71,9 @@ const Profile = ({ isOpenProfileModal, openProfileModal, auth, dispatch, users }
                                 <div
                                     className="max-h-40 overflow-y-auto bg-gray-900 p-4 rounded-lg space-y-4"
                                 >
-                                    {users.slice(0, 3).map((user, index) => (
+                                    {users?.map((user, index) => (
                                         <div
-                                            key={user.id || index}
+                                            key={user._id || index}
                                             className="flex justify-between items-center bg-gray-800 p-4 rounded-lg shadow-md"
                                         >
                                             <div className="text-gray-300 ">
@@ -78,7 +90,10 @@ const Profile = ({ isOpenProfileModal, openProfileModal, auth, dispatch, users }
                                                 </button>
                                                 <button
                                                     className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-full transition"
-                                                    onClick={() => console.log(`Remove user ${user.name}`)}
+                                                    onClick={() => {
+                                                        setSelectedId(user._id);
+                                                        setConfirmation(true);
+                                                    }}
                                                 >
                                                     <MdDelete />
                                                 </button>

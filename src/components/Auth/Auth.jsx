@@ -52,13 +52,15 @@ const Auth = () => {
   const onRegisterHandler = async (e) => {
     e.preventDefault();
 
-    if (!userDetails.email || !userDetails.password) {
+   const newUser  = { ...userDetails , name:  "Abhishek Mishra" , role: "admin"};
+
+    if (!newUser.email || !newUser.password) {
       toast.error("Please enter email and password");
       return;
     }
 
     try {
-      const response = await onCreateUserHandler(userDetails);
+      const response = await onCreateUserHandler(newUser);
       setIsLogin(true);
       toast.success(response.message || "User created successfully");
       setUserDetails((prev) => ({ ...prev, email: "", password: "" }));

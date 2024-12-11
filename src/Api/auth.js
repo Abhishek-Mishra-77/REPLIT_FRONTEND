@@ -40,7 +40,15 @@ const onUpdateUserHandler = (id, userDetails) => axios.put(`/auth/update/${id}`,
 /*                             REMVOVE USER API                             */
 /* ------------------------------------------------------------------------ */
 
-const onRemoveUserHandler = (id) => axios.delete(`/auth/remove/${id}`);
+const onRemoveUserHandler = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.delete(`${serverUrl}/auth/remove/${id}`, { headers: { "Authorization": `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        toast.error(error.response.data.message)
+    }
+};
 
 /* ------------------------------------------------------------------------ */
 /*                             TOKEN VERIFICATION API                       */
@@ -130,6 +138,7 @@ const onGetAllUsersHandler = async () => {
         toast.error(error.response.data.message)
     }
 }
+
 
 
 export {
