@@ -10,7 +10,9 @@ const Profile = ({
     dispatch,
     users,
     setConfirmation,
-    setSelectedId
+    setSelectedId,
+    setSelectedUser,
+    setOpenEditModal
 }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-70 z-50">
@@ -84,7 +86,10 @@ const Profile = ({
                                             <div className="flex gap-3">
                                                 <button
                                                     className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition"
-                                                    onClick={() => console.log(`Edit user ${user.name}`)}
+                                                    onClick={() => {
+                                                        setSelectedUser(user)
+                                                        setOpenEditModal(true)
+                                                    }}
                                                 >
                                                     <FaEdit />
                                                 </button>

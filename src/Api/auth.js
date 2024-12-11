@@ -34,7 +34,16 @@ const onSignInHandler = async (userDetails) => {
 /*                             UPDATE USER API                              */
 /* ------------------------------------------------------------------------ */
 
-const onUpdateUserHandler = (id, userDetails) => axios.put(`/auth/update/${id}`, userDetails);
+const onUpdateUserHandler = async (id, userDetails) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.put(`${serverUrl}/auth/update/${id}`, userDetails, { headers: { "Authorization": `Bearer ${token}` } });
+        return response.data;
+    }
+    catch (error) {
+        toast.error(error.response.data.message)
+    }
+};
 
 /* ------------------------------------------------------------------------ */
 /*                             REMVOVE USER API                             */

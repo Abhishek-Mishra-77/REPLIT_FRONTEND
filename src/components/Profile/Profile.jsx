@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { openProfileModal } from "../../store/slices/profileSlice";
 import ProfileDetails from "./ProfileDetails";
-import { onGetAllUsersHandler, onRemoveUserHandler } from "../../Api/auth";
+import { onGetAllUsersHandler, onRemoveUserHandler, onUpdateUserHandler } from "../../Api/auth";
 import ConfirmationModal from "../../Modals/ConfirmationModal";
+import UserEditModal from "../../Modals/UserEditModal";
 import { toast } from "react-toastify";
 
 
@@ -12,6 +13,8 @@ const Profile = ({ isOpenProfileModal }) => {
     const { auth } = useSelector((state) => state);
     const [users, setUsers] = useState([])
     const [confirmation, setConfirmation] = useState(false);
+    const [openEditModal, setOpenEditModal] = useState(false)
+    const [selectedUser, setSelectedUser] = useState(null);
     const [selectedId, setSelectedId] = useState("");
 
     useEffect(() => {
@@ -46,6 +49,31 @@ const Profile = ({ isOpenProfileModal }) => {
         }
     }
 
+
+    const userUpdateHandler = async () => {
+        if (auth?.userDetails?.role === "admin") {
+
+            if (!selectedUser?.name || !selectedUser?.email || !selectedUser?.role || !selectedUser?.password) {
+                toast.error("Please fill all the fields");
+                return;
+            }
+
+            try {
+                const responnse = await onUpdateUserHandler(selectedUser?._id, selectedUser);
+                const updatedUsers = users.map((user) => user._id === selectedUser?._id ? selectedUser : user);
+                setUsers(updatedUsers);
+                setOpenEditModal(false);
+                setSelectedUser(null);
+            }
+            catch (error) {
+                console.log(error)
+            }
+        }
+        else {
+            toast.warning("You cannot update your profile")
+        }
+    }
+
     return (
         <>
             <ProfileDetails
@@ -57,8 +85,9 @@ const Profile = ({ isOpenProfileModal }) => {
                 confirmation={confirmation}
                 setConfirmation={setConfirmation}
                 setSelectedId={setSelectedId}
+                setSelectedUser={setSelectedUser}
+                setOpenEditModal={setOpenEditModal}
             />
-
 
             {confirmation &&
                 <ConfirmationModal
@@ -69,6 +98,15 @@ const Profile = ({ isOpenProfileModal }) => {
                     heading="Confirm User Removal"
                     message="Are you sure you want to remove this user? This action cannot be undone."
                     type="error"
+                />
+            }
+
+            {openEditModal &&
+                <UserEditModal
+                    setOpenEditModal={setOpenEditModal}
+                    selectedUser={selectedUser}
+                    setSelectedUser={setSelectedUser}
+                    userUpdateHandler={userUpdateHandler}
                 />
             }
 
