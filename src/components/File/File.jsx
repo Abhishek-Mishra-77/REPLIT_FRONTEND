@@ -1,13 +1,13 @@
 import React from 'react'
-import Header from '../Home/header'
+import Header from '../Home/Header'
 
 const File = ({ folders }) => {
 
-    
+
 
     return (
         <div className="text-white gap-2 rounded-lg">
-            <Header folders={folders} />
+            <Header data={folders} />
         </div>
     )
 }

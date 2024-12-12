@@ -19,7 +19,6 @@ const FilePage = () => {
         })();
     }, []);
 
-
     return (
         <div>
             <TopBar Repls={folders} />

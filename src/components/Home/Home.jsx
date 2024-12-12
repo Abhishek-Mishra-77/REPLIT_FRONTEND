@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Folders from "./Folders";
 import CreateFolder from "./CreateFolder";
 import CreateFolderModal from "../../Modals/CreateFolderModal";
 import { useSelector, useDispatch } from "react-redux"
-import { onGetFolderByIdHandler, onCreateFolderHandler, onRemoveFolderHandler, onUpdateFolderHandler } from "../../Api/folder";
-import Header from "./header";
+import { onCreateFolderHandler, onRemoveFolderHandler, onUpdateFolderHandler } from "../../Api/folder";
+import Header from "./Header";
 import { openOrCloseFolderModal } from "../../store/slices/homeSlice";
 import { toast } from "react-toastify";
 import ConfirmationModal from "../../Modals/ConfirmationModal"
@@ -82,7 +82,7 @@ const Home = ({ folders, setFolders }) => {
 
   return (
     <div className="text-white gap-2 rounded-lg">
-      <Header folders={folders} />
+      <Header data={folders} name="Repls" />
       <CreateFolder />
       <Folders
         setConfirmation={setConfirmation}

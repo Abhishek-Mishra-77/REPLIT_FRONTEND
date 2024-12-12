@@ -85,20 +85,21 @@ const Sidebar = () => {
               >
                 <svg
                   aria-hidden="true"
-                  className="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  className="flex-shrink-0 w-6 h-6 text-text-200 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     fillRule="evenodd"
-                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                    d="M10 3.293l6 6A1 1 0 0115.707 10H14v5a1 1 0 01-1 1H7a1 1 0 01-1-1v-5H4.293A1 1 0 014 9.293l6-6a1 1 0 011.414 0zM6 11v4h8v-4h2.293l-6-6-6 6H6z"
                     clipRule="evenodd"
                   ></path>
                 </svg>
                 <span className="flex-1 ml-3 text-xs text-left whitespace-nowrap">
                   Home
                 </span>
+
               </Link>
             </li>
             <li>
@@ -132,6 +133,30 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
+              <Link
+                to={"/admin"}
+                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 2a1 1 0 01.832.445l5 7A1 1 0 0115 11h-1v3a4 4 0 01-8 0v-3H5a1 1 0 01-.832-1.555l5-7A1 1 0 0110 2zm0 2.618L6.763 9h6.474L10 4.618zM11 11v3a2 2 0 11-4 0v-3h4z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                <span className="flex-1 text-xs ml-3 whitespace-nowrap">
+                  Admin
+                </span>
+
+              </Link>
+            </li>
+            <li>
               <a
                 href="#"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
@@ -143,12 +168,19 @@ const Sidebar = () => {
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path>
-                  <path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path>
+                  <path
+                    fillRule="evenodd"
+                    d="M13 10V7a1 1 0 10-2 0v3H9a1 1 0 00-.707 1.707l3 3a1 1 0 001.414 0l3-3A1 1 0 0015 10h-2z"
+                    clipRule="evenodd"
+                  ></path>
+                  <path
+                    d="M4 12a4 4 0 011.33-7.748A6 6 0 0118 7a4 4 0 01-2 7h-1a1 1 0 110-2h1a2 2 0 10-.633-3.897 1 1 0 01-1.233-.986 4 4 0 10-7.13 2.813 1 1 0 01-.6 1.57A2 2 0 104 12z"
+                  ></path>
                 </svg>
                 <span className="flex-1 text-xs ml-3 whitespace-nowrap">
-                  Deploments
+                  Deployments
                 </span>
+
               </a>
             </li>
             <li>

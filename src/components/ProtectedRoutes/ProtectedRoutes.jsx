@@ -3,16 +3,19 @@ import EditorPage from "../../pages/EditorPage";
 import HomePage from "../../pages/HomePage";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import FilePage from "../../pages/FilePage";
+import AdminPage from "../../pages/AdminPage";
 import PageNotFound from "../../components/PageNotFound/PageNotFound";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { logout } from "../../store/slices/authSlice";
 import { onTokenVerificationHandler } from "../../Api/auth";
 
+
+
 const ProtectedRoutes = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLogin } = useSelector((state) => state.auth);
+  const { isLogin, userDetails } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!isLogin) {
@@ -35,6 +38,7 @@ const ProtectedRoutes = () => {
         <Route index element={<HomePage />} />
         <Route path="file/:id" element={<FilePage />} />
         <Route path="editor" element={<EditorPage />} />
+        {userDetails.role === "admin" && <Route path="admin" element={<AdminPage />} />}
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

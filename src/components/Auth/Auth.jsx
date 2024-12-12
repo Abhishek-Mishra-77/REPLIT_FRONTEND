@@ -51,7 +51,7 @@ const Auth = () => {
   const onRegisterHandler = async (e) => {
     e.preventDefault();
 
-   const newUser  = { ...userDetails , name:  "Abhishek Mishra" , role: "admin"};
+    const newUser = { ...userDetails, name: "Abhishek Mishra", role: "admin" };
 
     if (!newUser.email || !newUser.password) {
       toast.error("Please enter email and password");
