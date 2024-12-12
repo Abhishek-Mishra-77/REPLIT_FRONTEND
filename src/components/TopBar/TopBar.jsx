@@ -32,7 +32,7 @@ const TopBar = ({ Repls }) => {
         {isFocused && (searchFolder || filteredFolders?.length > 0) && (
           <div className="absolute w-[60%] top-10 transform-translate-x-1/2  bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-999">
             <ul
-              className="max-h-40 overflow-y-auto "
+              className="max-h-40 overflow-y-auto"
               style={{
                 scrollbarWidth: "none",
                 msOverflowStyle: "none",

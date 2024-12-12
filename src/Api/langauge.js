@@ -7,7 +7,7 @@ const token = localStorage.getItem("token");
 const onGetAllLanguagesHandler = async () => {
     const token = localStorage.getItem("token");
     try {
-        const response = await axios.get(`${serverUrl}/languages`, { headers: { "Authorization": `Bearer ${token}` } });
+        const response = await axios.get(`${serverUrl}/langauges/langauges`, { headers: { "Authorization": `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         toast.error(error.response.data.message)
