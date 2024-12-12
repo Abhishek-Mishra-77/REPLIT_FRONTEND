@@ -2,13 +2,12 @@ import React from "react";
 import { BiError } from "react-icons/bi";
 import { CiFolderOn } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
-import { useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ folders }) => {
   const { id } = useParams();
-  const { folders } = useSelector((state) => state.home);
-  const folderDetails = folders?.find((folder) => folder.id === id);
+
+  const folderDetails = folders?.find((folder) => folder._id === id);
 
   return (
     <>
@@ -20,7 +19,7 @@ const Header = () => {
           <h3 className="text-lg font-semibold">Repls</h3>
           <div className="flex items-center gap-2 text-gray-400 text-sm">
             <BiError className="text-yellow-400" />
-            <p>({folders?.length}) Repls</p>
+            <p>({folders ? folders?.length : 0}) Repls</p>
           </div>
         </div>
         <div className="flex items-center gap-2 px-5 py-2 justify-center button">
@@ -35,7 +34,7 @@ const Header = () => {
         <Link to={"/"} className="flex items-center gap-2 hover:underline">
           <span className="text-white font-medium">All</span>
           <span className="text-white-500">
-            {folderDetails ? "/ " + folderDetails.name : ""}
+            {folderDetails ? "/ " + folderDetails?.name : ""}
           </span>
         </Link>
       </div>

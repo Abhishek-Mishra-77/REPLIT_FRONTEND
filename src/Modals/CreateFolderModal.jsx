@@ -4,7 +4,7 @@ import { CiFolderOn } from "react-icons/ci";
 import { openOrCloseFolderModal } from '../store/slices/homeSlice';
 
 
-const CreateFolderModal = ({ folderName, setFolderName, folderId, addFolder,
+const CreateFolderModal = ({ folderName, setFolderName, folderId, addFolder, updateFolder,
     setFolderId }) => {
     const dispatch = useDispatch();
 
@@ -53,9 +53,7 @@ const CreateFolderModal = ({ folderName, setFolderName, folderId, addFolder,
                         <CiFolderOn className="text-xl" />
                         <span> Create Folder</span>
                     </button> : <button
-                        onClick={() => {
-                            dispatch(openOrCloseFolderModal())
-                        }}
+                        onClick={updateFolder}
                         className="px-2 py-2 flex text-sm gap-2 font-medium text-white  button transition"
                     >
                         <CiFolderOn className="text-xl" /> <span>Rename folder</span>

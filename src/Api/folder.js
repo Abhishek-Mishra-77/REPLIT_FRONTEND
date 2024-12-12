@@ -25,10 +25,10 @@ const onRemoveFolderHandler = async (id) => {
 }
 
 
-const onUpdateFolderHandler = async (id, folder) => {
+const onUpdateFolderHandler = async (id, name) => {
     const token = localStorage.getItem("token");
     try {
-        const response = await axios.put(`${serverUrl}/folders/update/${id}`, folder, { headers: { "Authorization": `Bearer ${token}` } });
+        const response = await axios.put(`${serverUrl}/folders/update/${id}`, { name }, { headers: { "Authorization": `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         toast.error(error.response.data.message)

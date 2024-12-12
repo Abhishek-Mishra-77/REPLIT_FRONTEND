@@ -3,32 +3,18 @@ import Folders from "./Folders";
 import CreateFolder from "./CreateFolder";
 import CreateFolderModal from "../../Modals/CreateFolderModal";
 import { useSelector, useDispatch } from "react-redux"
-import { onGetFolderByIdHandler, onCreateFolderHandler, onRemoveFolderHandler } from "../../Api/folder";
+import { onGetFolderByIdHandler, onCreateFolderHandler, onRemoveFolderHandler, onUpdateFolderHandler } from "../../Api/folder";
 import Header from "./header";
 import { openOrCloseFolderModal } from "../../store/slices/homeSlice";
 import { toast } from "react-toastify";
 import ConfirmationModal from "../../Modals/ConfirmationModal"
 
-const Home = () => {
-  const [folders, setFolders] = useState([]);
+const Home = ({ folders, setFolders }) => {
   const [folderName, setFolderName] = useState("");
   const [folderId, setFolderId] = useState("");
   const { isOpenFolderModal } = useSelector((state) => state.home);
   const [confirmation, setConfirmation] = useState(false)
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await onGetFolderByIdHandler();
-        if (response?.folders) {
-          setFolders(response.folders);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [isOpenFolderModal]);
 
 
   const addFolder = async (name) => {
@@ -51,10 +37,27 @@ const Home = () => {
     }
   }
 
-
   const updateFolder = async () => {
-    try {
+    if (!folderName) {
+      toast.warning("Please enter folder name")
+      return;
+    }
 
+    try {
+      const response = await onUpdateFolderHandler(folderId, folderName);
+      if (response) {
+        const updatedFolders = folders.map((folder) => {
+          if (folder._id === folderId) {
+            return { ...folder, name: folderName };
+          }
+          return folder;
+        });
+        setFolders(updatedFolders);
+        setFolderName("")
+        dispatch(openOrCloseFolderModal())
+        setFolderId("")
+      }
+      toast.success(response?.folder?.message)
     }
     catch (error) {
 
@@ -77,10 +80,9 @@ const Home = () => {
   }
 
 
-
   return (
     <div className="text-white gap-2 rounded-lg">
-      <Header />
+      <Header folders={folders} />
       <CreateFolder />
       <Folders
         setConfirmation={setConfirmation}
@@ -108,6 +110,7 @@ const Home = () => {
           folderId={folderId}
           setFolderId={setFolderId}
           addFolder={addFolder}
+          updateFolder={updateFolder}
         />}
     </div>
   );
