@@ -4,11 +4,11 @@ import File from '../components/File/File'
 import { useSelector } from 'react-redux'
 
 const FilePage = () => {
-    const { home, file } = useSelector((state) => state);
+    const { files } = useSelector((state) => state.file);
 
     return (
         <div>
-            <TopBar Repls={file.files} />
+            <TopBar Repls={files} />
             <div className="p-12 text-white">
                 <File />
             </div>

@@ -27,6 +27,7 @@ const ProtectedRoutes = () => {
       })();
     }
   }, [isLogin, navigate]);
+  
 
   return (
     <Routes>

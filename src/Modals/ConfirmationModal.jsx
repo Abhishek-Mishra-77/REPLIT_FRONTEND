@@ -7,23 +7,23 @@ const ConfirmationModal = ({
     heading,
     message,
     type,
-    setSelectedId
+    setSelectedId,
 }) => {
     const typeStyles = {
         success: {
-            iconBg: "bg-green-100",
-            iconColor: "text-green-600",
-            buttonBg: "bg-green-600 hover:bg-green-700 focus:ring-green-500",
+            iconBg: "bg-emerald-100",
+            iconColor: "text-emerald-600",
+            buttonBg: "bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500",
         },
         warning: {
-            iconBg: "bg-yellow-100",
-            iconColor: "text-yellow-600",
-            buttonBg: "bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500",
+            iconBg: "bg-amber-100",
+            iconColor: "text-amber-600",
+            buttonBg: "bg-amber-600 hover:bg-amber-700 focus:ring-amber-500",
         },
         error: {
-            iconBg: "bg-red-100",
-            iconColor: "text-red-600",
-            buttonBg: "bg-red-600 hover:bg-red-700 focus:ring-red-500",
+            iconBg: "bg-rose-100",
+            iconColor: "text-rose-600",
+            buttonBg: "bg-rose-600 hover:bg-rose-700 focus:ring-rose-500",
         },
     };
 
@@ -38,7 +38,7 @@ const ConfirmationModal = ({
                             className="fixed inset-0 transition-opacity"
                             aria-hidden="true"
                         >
-                            <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                            <div className="absolute inset-0 bg-gray-800 opacity-60"></div>
                         </div>
 
                         <span
@@ -47,13 +47,12 @@ const ConfirmationModal = ({
                         >
                             &#8203;
                         </span>
-                        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div className="inline-block align-bottom bg-[#1C2333] border border-sky-300 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                            <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                 <div className="sm:flex sm:items-start">
                                     <div
                                         className={`mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full ${styles.iconBg} sm:mx-0 sm:h-10 sm:w-10`}
                                     >
-                                        {/* Dynamic icon */}
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
@@ -70,13 +69,13 @@ const ConfirmationModal = ({
                                     </div>
                                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                         <h3
-                                            className="text-lg font-medium text-gray-900"
+                                            className="text-lg font-medium text-white"
                                             id="modal-title"
                                         >
                                             {heading}
                                         </h3>
                                         <div className="mt-2">
-                                            <p className="text-sm text-gray-500">{message}</p>
+                                            <p className="text-sm text-white">{message}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -92,10 +91,10 @@ const ConfirmationModal = ({
                                 <button
                                     type="button"
                                     onClick={() => {
-                                        setConfirmation(false)
-                                        setSelectedId("")
+                                        setConfirmation(false);
+                                        setSelectedId("");
                                     }}
-                                    className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                    className="inline-flex justify-center buttonStyle w-full rounded-md px-4     py-2  text-sm gap-2 font-medium text-white  button transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 sm:ml-3 sm:w-auto sm:text-sm"
                                 >
                                     Cancel
                                 </button>

@@ -37,7 +37,6 @@ const Auth = () => {
 
     try {
       const response = await onSignInHandler(userDetails);
-      console.log(response)
       dispatch(loginHandler({ user: response.user, token: response.token }));
       navigate("/");
       toast.success(response.message);

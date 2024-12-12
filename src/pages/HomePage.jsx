@@ -4,14 +4,15 @@ import { useSelector } from "react-redux";
 import Profile from "../components/Profile/Profile";
 
 const HomePage = () => {
-  const { home, profile } = useSelector((state) => state);
+  const { folders } = useSelector((state) => state.home);
+  const { isOpenProfileModal } = useSelector((state) => state.profile);
 
   return (
     <div>
-      <TopBar Repls={home.folders} />
+      <TopBar Repls={folders} />
       <div className="p-12 text-white">
         <Home />
-        {profile.isOpenProfileModal && <Profile isOpenProfileModal={profile.isOpenProfileModal} />}
+        {isOpenProfileModal && <Profile isOpenProfileModal={isOpenProfileModal} />}
       </div>
     </div>
   );
