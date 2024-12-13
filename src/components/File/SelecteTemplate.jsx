@@ -6,7 +6,7 @@ import * as TbIcons from 'react-icons/tb';
 import * as IOIcons from 'react-icons/io5';
 import * as RIIcons from 'react-icons/ri';
 
-const SelecteTemplate = ({ langauges, createFileHandler, file, setFile }) => {
+const SelecteTemplate = ({ langauges, createFileHandler, file, setFile, selectedId, updateFile }) => {
     const [search, setSearch] = useState("");
     const filteredLangauges = langauges?.filter((langauge) =>
         langauge.name.toLowerCase().includes(search.toLowerCase())
@@ -112,11 +112,17 @@ const SelecteTemplate = ({ langauges, createFileHandler, file, setFile }) => {
                             </div>
                         </div>
 
-                        <button
-                            onClick={createFileHandler}
-                            className="w-full mt-6 bg-gradient-to-r from-sky-500 to-sky-700 text-white text-sm py-2 px-4 rounded-lg hover:from-sky-400 hover:to-sky-600 transition shadow-md">
-                            + Create Repl
-                        </button>
+                        {selectedId ?
+                            <button
+                                onClick={createFileHandler}
+                                className="w-full mt-6 bg-gradient-to-r from-sky-500 to-sky-700 text-white text-sm py-2 px-4 rounded-lg hover:from-sky-400 hover:to-sky-600 transition shadow-md">
+                                + Create Repl
+                            </button> :
+                            <button
+                                onClick={updateFile}
+                                className="w-full mt-6 bg-gradient-to-r from-sky-500 to-sky-700 text-white text-sm py-2 px-4 rounded-lg hover:from-sky-400 hover:to-sky-600 transition shadow-md">
+                                + update Repl
+                            </button>}
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@ import { onCreateFileHandler, onGetFilesHandler } from '../../Api/file';
 import { toast } from 'react-toastify';
 import Files from './Files';
 import ConfirmationModal from '../../Modals/ConfirmationModal';
-import { onRemoveFileHandler } from '../../Api/file';
+import { onRemoveFileHandler, onUpdateFileHandler } from '../../Api/file';
 
 
 
@@ -73,6 +73,24 @@ const File = ({ files, setFiles }) => {
         }
     }
 
+    const updateFile = async () => {
+        if (!file.name || !file.langauge) return toast.error("All fields are required");
+
+        const fileDetails = { ...file, folderId: id };
+        try {
+            const response = await onUpdateFileHandler(selectedId, fileDetails);
+            if (response) {
+                const updatedFiles = files.map((file) => file._id === selectedId ? response?.file : file);
+                setFiles(updatedFiles);
+                setSelectedId("");
+                setOpenTemplate(false);
+            }
+            toast.success(response?.file?.message)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="text-white gap-2 rounded-lg">
 
@@ -81,9 +99,11 @@ const File = ({ files, setFiles }) => {
                     <Header data={files} listName="Files" />
                     <CreateFileAndFolder setOpenTemplate={setOpenTemplate} />
                     <Files
-                        setConfirmation={setConfirmation}
-                        setFolderId={setSelectedId}
                         files={files}
+                        setConfirmation={setConfirmation}
+                        setSelectedId={setSelectedId}
+                        setFile={setFile}
+                        setOpenTemplate={setOpenTemplate}
                     />
                     {confirmation &&
                         <ConfirmationModal
@@ -103,6 +123,7 @@ const File = ({ files, setFiles }) => {
                     file={file}
                     setFile={setFile}
                     langauges={langauges}
+                    updateFile={updateFile}
                 />}
         </div>
     )

@@ -7,7 +7,7 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { CiFileOn } from "react-icons/ci";
 
-const Files = ({ files, setConfirmation, setFolderId }) => {
+const Files = ({ files, setConfirmation, setSelectedId, setFile, setOpenTemplate }) => {
     const navigate = useNavigate();
     const [activeDropdown, setActiveDropdown] = useState(null);
 
@@ -52,8 +52,10 @@ const Files = ({ files, setConfirmation, setFolderId }) => {
                             <ul className="text-sm text-gray-300">
                                 <li
                                     onClick={() => {
-                                        setFolderId(file._id);
+                                        setSelectedId(file._id);
                                         setActiveDropdown(null);
+                                        setFile(file);
+                                        setOpenTemplate(true);
                                     }}
                                     className="px-4 py-2 flex items-center gap-2 hover:bg-gray-600 cursor-pointer"
                                 >
@@ -71,7 +73,7 @@ const Files = ({ files, setConfirmation, setFolderId }) => {
                                 <li
                                     className="px-4 py-2 flex items-center gap-2 hover:bg-red-600 cursor-pointer"
                                     onClick={() => {
-                                        setFolderId(file._id);
+                                        setSelectedId(file._id);
                                         setConfirmation(true)
                                         setActiveDropdown(null);
                                     }}

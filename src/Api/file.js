@@ -45,9 +45,9 @@ const onGetFilesHandler = async (folderId) => {
     }
 }
 
-const onUpdateFileHandler = async (id) => {
+const onUpdateFileHandler = async (id, data) => {
     try {
-        const response = await axios.get(`${serverUrl}/files/ update/${id}`, { headers: { "Authorization": `Bearer ${token}` } });
+        const response = await axios.put(`${serverUrl}/files/update/${id}`, data, { headers: { "Authorization": `Bearer ${token}` } });
         return response.data;
     }
     catch (error) {
