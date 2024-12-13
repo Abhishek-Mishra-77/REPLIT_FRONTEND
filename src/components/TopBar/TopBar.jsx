@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 
-const TopBar = ({ Repls }) => {
-  const [searchFolder, setSearchFolder] = useState("");
+const TopBar = ({ Repls, filderedData, searchFolder, setSearchFolder }) => {
   const [isFocused, setIsFocused] = useState(false);
-
-  const filteredFolders = Repls?.filter((folder) =>
-    folder.name.toLowerCase().includes(searchFolder.toLowerCase())
-  );
 
   return (
     <div
@@ -29,7 +24,7 @@ const TopBar = ({ Repls }) => {
           />
           <span className="absolute right-3  text-slate-400">Ctrl</span>
         </div>
-        {isFocused && (searchFolder || filteredFolders?.length > 0) && (
+        {isFocused && (searchFolder || Repls?.length > 0) && (
           <div className="absolute w-[60%] top-10 transform-translate-x-1/2  bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-999">
             <ul
               className="max-h-40 overflow-y-auto"
@@ -38,7 +33,7 @@ const TopBar = ({ Repls }) => {
                 msOverflowStyle: "none",
               }}
             >
-              {(searchFolder ? filteredFolders : Repls)?.map(
+              {filderedData?.map(
                 (folder, index) => (
                   <li
                     key={index}

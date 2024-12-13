@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import TopBar from '../components/TopBar/TopBar'
 import File from '../components/File/File'
-import { onGetFolderByIdHandler } from '../Api/folder'
 import { onGetFilesHandler } from '../Api/file'
 import { useParams } from 'react-router-dom'
 
@@ -9,6 +8,7 @@ import { useParams } from 'react-router-dom'
 const FilePage = () => {
     const { id } = useParams();
     const [files, setFiles] = useState([]);
+    const [searchFolder, setSearchFolder] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -24,11 +24,21 @@ const FilePage = () => {
         })();
     }, []);
 
+
+    const filteredFiles = files?.filter((folder) =>
+        folder.name.toLowerCase().includes(searchFolder.toLowerCase())
+    );
+
     return (
         <div>
-            <TopBar Repls={files} />
+            <TopBar
+                Repls={files}
+                filderedData={filteredFiles}
+                searchFolder={searchFolder}
+                setSearchFolder={setSearchFolder}
+            />
             <div className="p-12 text-white">
-                <File setFiles={setFiles} files={files} />
+                <File setFiles={setFiles} files={filteredFiles} />
             </div>
         </div>
     )

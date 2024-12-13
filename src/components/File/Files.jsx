@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { LuUsersRound } from "react-icons/lu";
 import { CiFolderOn } from "react-icons/ci";
-import { useDispatch } from 'react-redux';
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-import { openOrCloseFolderModal } from '../../store/slices/homeSlice';
 import { CiFileOn } from "react-icons/ci";
 
 const Files = ({ files, setConfirmation, setFolderId }) => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [activeDropdown, setActiveDropdown] = useState(null);
 
@@ -30,7 +27,7 @@ const Files = ({ files, setConfirmation, setFolderId }) => {
                     key={file._id}
                     tabIndex={i + 1}
                     className="p-2 flex justify-between w-[30%] mt-4 items-center borderStyle gap-3 bg-gray-800 rounded-md cursor-pointer transition-colors duration-300 relative"
-                    onClick={() => navigate(`/file/${file._id}`)}
+                // onClick={() => navigate(`/file/${file._id}`)}
                 >
                     <div className="flex gap-2">
                         <CiFileOn className="text-sky-400 text-lg" />
@@ -55,8 +52,6 @@ const Files = ({ files, setConfirmation, setFolderId }) => {
                             <ul className="text-sm text-gray-300">
                                 <li
                                     onClick={() => {
-                                        dispatch(openOrCloseFolderModal());
-                                        setFolderName(file.name);
                                         setFolderId(file._id);
                                         setActiveDropdown(null);
                                     }}
@@ -65,7 +60,7 @@ const Files = ({ files, setConfirmation, setFolderId }) => {
                                     <span className="text-xl">
                                         <MdDriveFileRenameOutline />
                                     </span>
-                                    <span>Rename</span>
+                                    <span>update</span>
                                 </li>
                                 <li className="px-4 py-2 flex items-center gap-2 hover:bg-gray-600 cursor-pointer">
                                     <span className="text-xl">

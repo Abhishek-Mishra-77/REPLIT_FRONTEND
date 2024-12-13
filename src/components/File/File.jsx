@@ -80,7 +80,23 @@ const File = ({ files, setFiles }) => {
                 <>
                     <Header data={files} listName="Files" />
                     <CreateFileAndFolder setOpenTemplate={setOpenTemplate} />
-                    <Files files={files} />
+                    <Files
+                        setConfirmation={setConfirmation}
+                        setFolderId={setSelectedId}
+                        files={files}
+                    />
+                    {confirmation &&
+                        <ConfirmationModal
+                            confirmation={confirmation}
+                            onSubmitHandler={removeFile}
+                            setConfirmation={setConfirmation}
+                            setSelectedId={setSelectedId}
+                            heading="Confirm File Removal"
+                            message="Are you sure you want to remove this file? This action cannot be undone and all the associated data will be deleted."
+                            type="error"
+                        />
+                    }
+
                 </>
                 : <SelecteTemplate
                     createFileHandler={createFileHandler}

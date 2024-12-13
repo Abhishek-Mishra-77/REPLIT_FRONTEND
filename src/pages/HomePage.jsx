@@ -7,6 +7,7 @@ import { onGetFolderByIdHandler } from "../Api/folder";
 
 const HomePage = () => {
   const [folders, setFolders] = useState([]);
+  const [searchFolder, setSearchFolder] = useState("");
   const { isOpenProfileModal } = useSelector((state) => state.profile);
 
   useEffect(() => {
@@ -22,12 +23,20 @@ const HomePage = () => {
     })();
   }, []);
 
+  const filteredFolders = folders?.filter((folder) =>
+    folder.name.toLowerCase().includes(searchFolder.toLowerCase())
+  );
 
   return (
     <div>
-      <TopBar Repls={folders} />
+      <TopBar
+        Repls={folders}
+        filderedData={filteredFolders}
+        searchFolder={searchFolder}
+        setSearchFolder={setSearchFolder}
+      />
       <div className="p-12 text-white">
-        <Home folders={folders} setFolders={setFolders} />
+        <Home folders={filteredFolders} setFolders={setFolders} />
         {isOpenProfileModal && <Profile isOpenProfileModal={isOpenProfileModal} />}
       </div>
     </div>
