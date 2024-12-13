@@ -82,7 +82,7 @@ const Home = ({ folders, setFolders }) => {
 
   return (
     <div className="text-white gap-2 rounded-lg">
-      <Header data={folders} name="Repls" />
+      <Header data={folders} listName="Repls" />
       <CreateFolder />
       <Folders
         setConfirmation={setConfirmation}

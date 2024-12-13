@@ -36,7 +36,7 @@ const ProtectedRoutes = () => {
     <Routes>
       <Route path="/" element={<Sidebar />}>
         <Route index element={<HomePage />} />
-        <Route path="file/:id" element={<FilePage />} />
+        <Route path="file/:name/:id" element={<FilePage />} />
         <Route path="editor" element={<EditorPage />} />
         {userDetails.role === "admin" && <Route path="admin" element={<AdminPage />} />}
       </Route>

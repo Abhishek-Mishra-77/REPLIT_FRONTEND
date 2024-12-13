@@ -4,8 +4,8 @@ import { CiFolderOn } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { useParams, Link } from "react-router-dom";
 
-const Header = ({ data, name }) => {
-  const { id } = useParams();
+const Header = ({ data, listName }) => {
+  const { id, name } = useParams();
 
   const dataDetails = data?.find((item) => item._id === id);
 
@@ -16,10 +16,10 @@ const Header = ({ data, name }) => {
           <span className="text-sky-400 text-2xl">
             <CiFolderOn />
           </span>
-          <h3 className="text-lg font-semibold">{name}</h3>
+          <h3 className="text-lg font-semibold">{listName}</h3>
           <div className="flex items-center gap-2 text-gray-400 text-sm">
             <BiError className="text-yellow-400" />
-            <p>({data ? data?.length : 0}) {name}</p>
+            <p>({data ? data?.length : 0}) {listName}</p>
           </div>
         </div>
         <div className="flex items-center gap-2 px-5 py-2 justify-center button">
@@ -34,7 +34,7 @@ const Header = ({ data, name }) => {
         <Link to={"/"} className="flex items-center gap-2 hover:underline">
           <span className="text-white font-medium">All</span>
           <span className="text-white-500">
-            {dataDetails ? "/ " + dataDetails?.name : ""}
+            {name ? "/ " + name : ""}
           </span>
         </Link>
       </div>

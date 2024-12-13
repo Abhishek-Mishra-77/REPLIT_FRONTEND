@@ -6,6 +6,9 @@ import { onGetAllLanguagesHandler } from '../../Api/langauge';
 import { useParams } from 'react-router-dom';
 import { onCreateFileHandler, onGetFilesHandler } from '../../Api/file';
 import { toast } from 'react-toastify';
+import Files from './Files';
+import ConfirmationModal from '../../Modals/ConfirmationModal';
+import { onRemoveFileHandler } from '../../Api/file';
 
 
 
@@ -17,8 +20,9 @@ const File = ({ files, setFiles }) => {
     });
     const [openTemplate, setOpenTemplate] = React.useState(false);
     const [langauges, setLangauges] = React.useState([]);
+    const [selectedId, setSelectedId] = useState("");
+    const [confirmation, setConfirmation] = useState(false);
     const { id } = useParams();
-
 
     useEffect(() => {
         (async () => {
@@ -39,15 +43,31 @@ const File = ({ files, setFiles }) => {
         const fileDetails = { ...file, folderId: id };
         try {
             const response = await onCreateFileHandler(fileDetails);
-            if (response) {
+            if (response?.file) {
                 setFile({
                     name: "",
                     langauge: "",
                     folderId: ""
                 });
+                setFiles((prev) => [...prev, response?.file]);
                 setOpenTemplate(false);
-                toast.success(response?.file?.message)
+                toast.success(response?.message)
             }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const removeFile = async () => {
+        try {
+            const response = await onRemoveFileHandler(selectedId);
+            if (response) {
+                const filteredFiles = files.filter((file) => file._id !== selectedId);
+                setFiles(filteredFiles);
+                setConfirmation(false);
+                setSelectedId("");
+            }
+            toast.success(response?.file?.message)
         } catch (error) {
             console.log(error);
         }
@@ -55,13 +75,12 @@ const File = ({ files, setFiles }) => {
 
     return (
         <div className="text-white gap-2 rounded-lg">
+
             {!openTemplate ?
                 <>
-                    <Header data={files} name="Files" />
-                    <CreateFileAndFolder
-                        setOpenTemplate={setOpenTemplate}
-
-                    />
+                    <Header data={files} listName="Files" />
+                    <CreateFileAndFolder setOpenTemplate={setOpenTemplate} />
+                    <Files files={files} />
                 </>
                 : <SelecteTemplate
                     createFileHandler={createFileHandler}
