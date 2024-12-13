@@ -11,7 +11,6 @@ import ConfirmationModal from '../../Modals/ConfirmationModal';
 import { onRemoveFileHandler, onUpdateFileHandler } from '../../Api/file';
 
 
-
 const File = ({ files, setFiles }) => {
     const [file, setFile] = useState({
         name: "",

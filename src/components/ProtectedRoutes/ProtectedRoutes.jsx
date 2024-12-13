@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { logout } from "../../store/slices/authSlice";
 import { onTokenVerificationHandler } from "../../Api/auth";
+import CompilerPage from "../../pages/CompilerPage";
 
 
 
@@ -37,6 +38,7 @@ const ProtectedRoutes = () => {
       <Route path="/" element={<Sidebar />}>
         <Route index element={<HomePage />} />
         <Route path="file/:name/:id" element={<FilePage />} />
+        <Route path="compiler/:name/:id" element={<CompilerPage />} />
         <Route path="editor" element={<EditorPage />} />
         {userDetails.role === "admin" && <Route path="admin" element={<AdminPage />} />}
       </Route>
