@@ -80,9 +80,19 @@ const File = ({ files, setFiles }) => {
         try {
             const response = await onUpdateFileHandler(selectedId, fileDetails);
             if (response) {
-                const updatedFiles = files.map((file) => file._id === selectedId ? response?.file : file);
+                const updatedFiles = files.map((file) => {
+                    if (file._id === selectedId) {
+                        return { ...file, name: fileDetails.name, langauge: fileDetails.langauge }
+                    }
+                    else return file;
+                });
                 setFiles(updatedFiles);
                 setSelectedId("");
+                setFile({
+                    name: "",
+                    langauge: "",
+                    folderId: ""
+                });
                 setOpenTemplate(false);
             }
             toast.success(response?.file?.message)
@@ -93,7 +103,6 @@ const File = ({ files, setFiles }) => {
 
     return (
         <div className="text-white gap-2 rounded-lg">
-
             {!openTemplate ?
                 <>
                     <Header data={files} listName="Files" />
@@ -124,6 +133,7 @@ const File = ({ files, setFiles }) => {
                     setFile={setFile}
                     langauges={langauges}
                     updateFile={updateFile}
+                    selectedId={selectedId}
                 />}
         </div>
     )

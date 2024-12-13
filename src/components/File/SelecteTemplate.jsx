@@ -112,7 +112,7 @@ const SelecteTemplate = ({ langauges, createFileHandler, file, setFile, selected
                             </div>
                         </div>
 
-                        {selectedId ?
+                        {!selectedId ?
                             <button
                                 onClick={createFileHandler}
                                 className="w-full mt-6 bg-gradient-to-r from-sky-500 to-sky-700 text-white text-sm py-2 px-4 rounded-lg hover:from-sky-400 hover:to-sky-600 transition shadow-md">
