@@ -23,7 +23,6 @@ const FilePage = () => {
         })();
     }, [id]);
 
-
     const filteredFiles = files?.filter((folder) =>
         folder.name.toLowerCase().includes(searchFolder.toLowerCase())
     );

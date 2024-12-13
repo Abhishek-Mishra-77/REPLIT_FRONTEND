@@ -27,7 +27,7 @@ const Files = ({ files, setConfirmation, setSelectedId, setFile, setOpenTemplate
                     key={file._id}
                     tabIndex={i + 1}
                     className="p-2 flex justify-between w-[30%] mt-4 items-center borderStyle gap-3 bg-gray-800 rounded-md cursor-pointer transition-colors duration-300 relative"
-                // onClick={() => navigate(`/file/${file._id}`)}
+                    onClick={() => navigate(`/compiler/${file.name}/${file._id}`)}
                 >
                     <div className="flex gap-2">
                         <CiFileOn className="text-sky-400 text-lg" />

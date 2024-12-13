@@ -4,7 +4,9 @@ import Compiler from '../components/Compiler/Compiler';
 const CompilerPage = () => {
     return (
         <div>
-            <Compiler />
+            <div className="p-12 text-white">
+                <Compiler />
+            </div>
         </div>
     )
 }
