@@ -4,14 +4,15 @@ import File from '../components/File/File'
 import { onGetFolderByIdHandler } from '../Api/folder'
 
 const FilePage = () => {
-    const [folders, setFolders] = useState([]);
+    const [files, setFiles] = useState([]);
+
 
     useEffect(() => {
         (async () => {
             try {
                 const response = await onGetFolderByIdHandler();
-                if (response?.folders) {
-                    setFolders(response.folders);
+                if (response?.files) {
+                    setFiles(response.files);
                 }
             } catch (error) {
                 console.log(error);
@@ -21,9 +22,9 @@ const FilePage = () => {
 
     return (
         <div>
-            <TopBar Repls={folders} />
+            <TopBar Repls={files} />
             <div className="p-12 text-white">
-                <File folders={folders} />
+                <File files={files} setFiles={setFiles} />
             </div>
         </div>
     )

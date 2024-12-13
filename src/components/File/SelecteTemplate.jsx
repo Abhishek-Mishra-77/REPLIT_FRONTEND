@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import * as MdIcons from "react-icons/md";
 import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
 import * as SiIcons from 'react-icons/si';
@@ -7,9 +6,8 @@ import * as TbIcons from 'react-icons/tb';
 import * as IOIcons from 'react-icons/io5';
 import * as RIIcons from 'react-icons/ri';
 
-const SelecteTemplate = ({ setOpenTemplate, langauges }) => {
+const SelecteTemplate = ({ langauges, createFileHandler, file, setFile }) => {
     const [search, setSearch] = useState("");
-
     const filteredLangauges = langauges?.filter((langauge) =>
         langauge.name.toLowerCase().includes(search.toLowerCase())
     );
@@ -43,8 +41,8 @@ const SelecteTemplate = ({ setOpenTemplate, langauges }) => {
                     </button>
                 </div>
 
-                <div className="flex gap-8">
-                    <div className="w-1/2 border border-gray-700 p-4 rounded-lg mainBackground shadow-md">
+                <div className="flex gap-8 flex-wrap md:flex-nowrap">
+                    <div className="md:w-1/2 border border-gray-700 p-4 rounded-lg mainBackground shadow-md">
                         <div>
                             <label className="block mb-4 text-sm font-medium text-gray-400">Template</label>
                             <input
@@ -68,12 +66,17 @@ const SelecteTemplate = ({ setOpenTemplate, langauges }) => {
 
                                 return (
                                     <li
-                                        key={langauge._id}
-                                        className="flex items-center cursor-pointer gap-2 p-3 rounded-lg bg-gray-800 dark:border-gray-900 transition"
+                                        onClick={() => setFile((prev) => ({ ...prev, langauge: langauge?.name }))}
+                                        key={langauge?._id}
+                                        className={`flex items-center cursor-pointer gap-2 p-3 rounded-lg bg-gray-800 dark:border-sky-900 transition ${file?.langauge === langauge?.name
+                                            ? "bg-sky-600 text-white"
+                                            : "hover:bg-sky-600 text-gray-400"
+                                            }`}
                                     >
                                         <LogoComponent className="w-6 h-6" />
-                                        <span>{langauge.name}</span>
+                                        <span>{langauge?.name}</span>
                                     </li>
+
                                 );
                             })}
                             {filteredLangauges?.length === 0 && (
@@ -82,10 +85,12 @@ const SelecteTemplate = ({ setOpenTemplate, langauges }) => {
                         </ul>
                     </div>
 
-                    <div className="w-1/2 p-4 border border-gray-700 rounded-lg mainBackground shadow-md">
+                    <div className="md:w-1/2 p-4 border border-gray-700 rounded-lg mainBackground shadow-md">
                         <label className="block mb-4 text-sm font-medium text-gray-400">Title</label>
                         <input
                             type="text"
+                            value={file.name}
+                            onChange={(e) => setFile((prev) => ({ ...prev, name: e.target.value }))}
                             placeholder="Enter Title"
                             className="w-full mb-2 bg-transparent placeholder:text-slate-400 text-sm border border-gray-200 dark:border-gray-700 rounded-md p-2 text-white active:border-sky-300 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                         />
@@ -107,7 +112,9 @@ const SelecteTemplate = ({ setOpenTemplate, langauges }) => {
                             </div>
                         </div>
 
-                        <button className="w-full mt-6 bg-gradient-to-r from-sky-500 to-sky-700 text-white text-sm py-2 px-4 rounded-lg hover:from-sky-400 hover:to-sky-600 transition shadow-md">
+                        <button
+                            onClick={createFileHandler}
+                            className="w-full mt-6 bg-gradient-to-r from-sky-500 to-sky-700 text-white text-sm py-2 px-4 rounded-lg hover:from-sky-400 hover:to-sky-600 transition shadow-md">
                             + Create Repl
                         </button>
                     </div>

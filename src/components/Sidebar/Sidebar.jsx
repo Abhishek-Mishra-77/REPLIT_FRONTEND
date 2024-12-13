@@ -132,30 +132,33 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li>
-              <Link
-                to={"/admin"}
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+            {userDetails?.role === "admin" && (
+              <li>
+                <Link
+                  to={"/admin"}
+                  className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 2a1 1 0 01.832.445l5 7A1 1 0 0115 11h-1v3a4 4 0 01-8 0v-3H5a1 1 0 01-.832-1.555l5-7A1 1 0 0110 2zm0 2.618L6.763 9h6.474L10 4.618zM11 11v3a2 2 0 11-4 0v-3h4z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                <span className="flex-1 text-xs ml-3 whitespace-nowrap">
-                  Admin
-                </span>
+                  <svg
+                    aria-hidden="true"
+                    className="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 2a1 1 0 01.832.445l5 7A1 1 0 0115 11h-1v3a4 4 0 01-8 0v-3H5a1 1 0 01-.832-1.555l5-7A1 1 0 0110 2zm0 2.618L6.763 9h6.474L10 4.618zM11 11v3a2 2 0 11-4 0v-3h4z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="flex-1 text-xs ml-3 whitespace-nowrap">
+                    Admin
+                  </span>
 
-              </Link>
-            </li>
+                </Link>
+              </li>
+
+            )}
             <li>
               <a
                 href="#"
@@ -255,7 +258,7 @@ const Sidebar = () => {
             </button>
 
             {isMenuOpen && (
-              <div className="absolute bottom-12 left-6 w-48 bg-[#1C2333] text-white rounded-lg shadow-xl border border-gray-700 z-10">
+              <div className="absolute bottom-12 left-6  bg-[#1C2333] text-white rounded-lg shadow-xl border border-gray-700 z-10">
                 <div className="p-4 text-white">
                   <p className="text-sm font-medium">
                     {userDetails?.name || "Guest"}
