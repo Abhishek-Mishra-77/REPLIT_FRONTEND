@@ -14,7 +14,6 @@ const FilePage = () => {
         (async () => {
             try {
                 const fileResponse = await onGetFilesHandler(id);
-
                 if (fileResponse?.files) {
                     setFiles(fileResponse?.files);
                 }
@@ -22,7 +21,7 @@ const FilePage = () => {
                 console.log(error);
             }
         })();
-    }, []);
+    }, [id]);
 
 
     const filteredFiles = files?.filter((folder) =>

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const token = localStorage.getItem("token");
 
 const onCreateFileHandler = async (file) => {
+    const token = localStorage.getItem("token");
     try {
         const response = await axios.post(`${serverUrl}/files/create`, file, { headers: { "Authorization": `Bearer ${token}` } });
         return response.data;
@@ -15,6 +16,7 @@ const onCreateFileHandler = async (file) => {
 }
 
 const onRemoveFileHandler = async (id) => {
+    const token = localStorage.getItem("token");
     try {
         const response = await axios.delete(`${serverUrl}/files/remove/${id}`, { headers: { "Authorization": `Bearer ${token}` } });
         return response.data;
@@ -25,6 +27,7 @@ const onRemoveFileHandler = async (id) => {
 }
 
 const onGetFileByIdHandler = async (id) => {
+    const token = localStorage.getItem("token");
     try {
         const response = await axios.get(`${serverUrl}/files/file/${id}`, { headers: { "Authorization": `Bearer ${token}` } });
         return response.data;
@@ -36,6 +39,7 @@ const onGetFileByIdHandler = async (id) => {
 
 
 const onGetFilesHandler = async (folderId) => {
+    const token = localStorage.getItem("token");
     try {
         const response = await axios.get(`${serverUrl}/files/files/${folderId}`, { headers: { "Authorization": `Bearer ${token}` } });
         return response.data;
@@ -46,6 +50,7 @@ const onGetFilesHandler = async (folderId) => {
 }
 
 const onUpdateFileHandler = async (id, data) => {
+    const token = localStorage.getItem("token");
     try {
         const response = await axios.put(`${serverUrl}/files/update/${id}`, data, { headers: { "Authorization": `Bearer ${token}` } });
         return response.data;
