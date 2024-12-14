@@ -96,7 +96,7 @@ fun main() {
                             id="language-select"
                             value={language}
                             onChange={handleLanguageChange}
-                            className="border border-gray-300 rounded px-2 py-1"
+                            className="border border-gray-300 bg-gray-2 bg-gray-800 rounded px-2 py-1"
                         >
                             {languages.map((lang) => (
                                 <option key={lang} value={lang}>{lang.toUpperCase()}</option>
