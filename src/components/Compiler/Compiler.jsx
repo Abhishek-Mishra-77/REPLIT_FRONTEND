@@ -1,55 +1,74 @@
-import { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { Editor } from '@monaco-editor/react';
+import axios from 'axios';
 
 function Compiler() {
-    const [language, setLanguage] = useState("Python");
-    const [code, setCode] = useState("");
-    const [output, setOutput] = useState("");
-    const [error, setError] = useState("");
+    const [code, setCode] = useState(localStorage.getItem('code') || '');
+    const [output, setOutput] = useState('');
+    const [language, setLanguage] = useState('javascript'); // Default language
 
-    const handleCompile = async () => {
-        setOutput("");
-        setError("");
+    useEffect(() => {
+        localStorage.setItem('code', code);
+    }, [code]);
+
+    const handleEditorChange = (value, event) => {
+        setCode(value);
+    };
+
+    const handleLanguageChange = (event) => {
+        const selectedLanguage = event.target.value;
+        setLanguage(selectedLanguage);
+    };
+
+    const runCode = async () => {
         try {
-            const response = await axios.post("http://localhost:7000/compiler/compile", { language, code });
-            setOutput(response.data.output);
-        } catch (err) {
-            setError(err.response?.data?.error || "Error connecting to the server.");
+            // Convert language to 'js' if it's 'javascript'
+            const lang = language === 'javascript' ? 'js' : language;
+            const response = await axios.post('http://localhost:7000/compiler/compile', {
+                code,
+                language: lang,
+            });
+
+            setOutput(response.data.message);
+        } catch (error) {
+            setOutput(error.toString());
         }
     };
 
     return (
-        <div className="text-white">
-            <h1>Online Compiler</h1>
-            <select
-                className="dropdown p-2"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-            >
-                <option value="Python">Python</option>
-                <option value="Java">Java</option>
-                <option value="Javascript">JavaScript</option>
-                <option value="C">C</option>
-                <option value="Cpp">C++</option>
-            </select>
-            <textarea
-                className="w-full mt-4 p-2 bg-gray-900 text-white border rounded"
-                placeholder="Write your code here..."
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-            />
-            <button
-                className="mt-2 p-2 bg-blue-600 text-white rounded"
-                onClick={handleCompile}
-            >
-                Compile
-            </button>
-            <div className="mt-4">
-                <h2>Output:</h2>
-                <pre className="bg-gray-800 p-2 rounded">{output || error}</pre>
+        <div className="App">
+            <div style={{ display: 'flex' }}>
+                <div style={{ flex: 1, border: '1px solid #ccc', borderRadius: '5px', padding: '10px' }}>
+                    <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
+                        <label style={{ marginRight: '10px' }}>Select Language:</label>
+                        <select value={language} onChange={handleLanguageChange}>
+                            <option value="javascript">JavaScript</option>
+                            <option value="c">C</option>
+                        </select>
+                    </div>
+                    <div style={{ border: '1px solid #ccc', borderRadius: '5px' }}>
+                        <Editor
+                            height="80vh"
+                            language={language}
+                            value={code}
+                            onChange={handleEditorChange}
+                        />
+                    </div>
+                    <button onClick={runCode}>Run</button>
+                </div>
+                <div style={{ flex: 1, marginLeft: '20px' }}>
+                    <h2>Output:</h2>
+                    <div style={{ border: '1px solid #ccc', padding: '10px', minHeight: '80vh' }}>
+                        {output.split('\n').map((line, index) => (
+                            <React.Fragment key={index}>
+                                {line}
+                                <br />
+                            </React.Fragment>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
-
     );
 }
 
